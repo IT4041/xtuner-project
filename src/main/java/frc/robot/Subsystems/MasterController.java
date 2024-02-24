@@ -34,7 +34,6 @@ public class MasterController extends SubsystemBase {
     //if we have a note in firing head move to short shooting position
     // and turn on shooting wheels
     if(m_firingHead.EitherSensorTriggered()){
-      //TODO: this needs to be overridden when the operator moves the pivot
       if(m_pivot.InStartingPosition()){
         m_pivot.GoToShootingShortRange();
       }
