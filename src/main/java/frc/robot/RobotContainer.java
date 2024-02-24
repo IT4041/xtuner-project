@@ -145,6 +145,7 @@ public class RobotContainer {
     operatorController.y().onTrue(new InstantCommand(() -> pivot.up(), pivot));
     operatorController.a().onTrue(new InstantCommand(() -> pivot.down(), pivot));
 
+    //TODO: make head go to start on intake on
     operatorController.rightTrigger().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
         .until(() -> (firingHead.EitherSensorTriggered() && pivot.InStartingPosition())
             || (intake.EitherSensorTriggered() && !pivot.InStartingPosition())
