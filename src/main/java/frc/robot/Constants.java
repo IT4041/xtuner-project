@@ -26,7 +26,7 @@ public class Constants {
         public static final class PivotPostions {
             public static final double ZeroOffset = 124.4;
             
-            public static final double ShootingPointMidRange = 39.5; //auto shooting pos 2
+            public static final double ShootingPointMidRange = 41.5; //auto shooting pos 2 39.5
             public static final double DumpPoint = 36;
             public static final double ShootingPointShortRange = 27; //auto shooting pos 1
             public static final double StartingPoint = 21; //up close shooting
@@ -98,6 +98,9 @@ public class Constants {
     public static final class LEDConstants{
         public static final int PWMPort = 5;
         public static final int StripLength = 12;
+
+        public static final int PWMPortBack = 6;
+        public static final int StripLengthBack = 13;
 
         public static final Color purple = new Color(255, 1, 255);
         public static final Color yellow = new Color(255, 128, 1);

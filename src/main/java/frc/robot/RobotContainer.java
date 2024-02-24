@@ -122,8 +122,8 @@ public class RobotContainer {
             new InstantCommand(
                 () -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead), // transport motor off
             new WaitCommand(1), // conveyr off
-            new InstantCommand(() -> firingHead.MasterStop(), firingHead),
-            new InstantCommand(() -> pivot.GoToStarting(), pivot)));
+            new InstantCommand(() -> firingHead.MasterStop(), firingHead)));//,
+            //new InstantCommand(() -> pivot.GoToStarting(), pivot)));
 
     driverController.leftTrigger().onTrue(new RunCommand(() -> firingHead.Source(), firingHead)
         .until(() -> (firingHead.SideSensorTriggered() 

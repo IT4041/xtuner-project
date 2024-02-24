@@ -15,6 +15,10 @@ public class LED extends SubsystemBase {
 
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
+
+  //private AddressableLED m_ledBack;
+  // private AddressableLEDBuffer m_ledBackBuffer;
+
   private Color indicator = Constants.LEDConstants.red;
 
   /** Creates a new LED. */
@@ -22,16 +26,23 @@ public class LED extends SubsystemBase {
     // PWM port 5
     // Must be a PWM header, not MXP or DIO
      this.m_led = new AddressableLED(Constants.LEDConstants.PWMPort);
+     //this.m_ledBack = new AddressableLED(Constants.LEDConstants.PWMPortBack);
 
     // Reuse buffer
     // Default to a length of 6 start empty output
     // Length is expensive to set, so only set it once, then just update data
     this.m_ledBuffer = new AddressableLEDBuffer(Constants.LEDConstants.StripLength);
+    //this.m_ledBackBuffer = new AddressableLEDBuffer(Constants.LEDConstants.StripLengthBack);
+
     m_led.setLength(m_ledBuffer.getLength());
+    //m_ledBack.setLength(m_ledBackBuffer.getLength());
 
     // Set the data
     m_led.setData(m_ledBuffer);
     m_led.start();
+
+    //m_ledBack.setData(m_ledBackBuffer);
+    //m_ledBack.start();
 
   }
 
@@ -46,6 +57,12 @@ public class LED extends SubsystemBase {
       m_ledBuffer.setLED(i, indicator);
     }
     m_led.setData(m_ledBuffer);
+
+    // for (var i = 0; i < m_ledBackBuffer.getLength(); i++) {
+    //   // Sets the specified LED to the RGB values for red
+    //   m_ledBackBuffer.setLED(i, indicator);
+    // }
+    // m_ledBack.setData(m_ledBackBuffer);
   }
 
   public void capturedNote(){
