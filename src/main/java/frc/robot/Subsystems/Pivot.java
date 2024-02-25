@@ -23,8 +23,7 @@ public class Pivot extends SubsystemBase {
   private SparkAbsoluteEncoder m_Encoder;
   private double kP, kI, kD, period;
   private double wpi_pid_output;
-  private double current_position = Constants.PivotConstants.PivotPostions.StartingPoint;
-  private double target_position = current_position;
+  private double current_position,target_position;
   private int position_index = 0;
 
   public Pivot() {
@@ -55,6 +54,9 @@ public class Pivot extends SubsystemBase {
     mainMotor.enableVoltageCompensation(12);
 
     mainMotor.burnFlash();
+
+    current_position = Constants.PivotConstants.PivotPostions.PivotPoses[readInitalPosition()];
+    target_position = current_position;
   }
 
   public void periodic() {
@@ -73,33 +75,50 @@ public class Pivot extends SubsystemBase {
     SmartDashboard.putBoolean("Dump", position_index == 2);
     SmartDashboard.putBoolean("Shoot Low", position_index == 1);
     SmartDashboard.putBoolean("Starting", position_index == 0);
+    SmartDashboard.putBoolean("Pivot inStartingPosition", this.InStartingPosition());
+  }
+
+  private int readInitalPosition(){
+    double initialPosition = m_Encoder.getPosition();
+    int pos = 0;//default to starting/intake position
+    
+    if(this.withinRange(2, initialPosition, Constants.PivotConstants.PivotPostions.ShootingPointShortRange)){
+      pos = 1;
+    }
+    else if(this.withinRange(2, initialPosition, Constants.PivotConstants.PivotPostions.DumpPoint)){
+      pos = 2;
+    }
+    else if(this.withinRange(2, initialPosition, Constants.PivotConstants.PivotPostions.ShootingPointMidRange)){
+      pos = 3;
+    }
+    return pos;
   }
 
   private void setPosition(double position) {
     target_position = position;
   }
 
-  public void GoToDump() {
-    this.setPosition(Constants.PivotConstants.PivotPostions.DumpPoint);
-    current_position = Constants.PivotConstants.PivotPostions.DumpPoint;
-    position_index = 2;
-  }
-
   public void GoToStarting() {
-    this.setPosition(Constants.PivotConstants.PivotPostions.StartingPoint);
     current_position = Constants.PivotConstants.PivotPostions.StartingPoint;
+    this.setPosition(current_position);
     position_index = 0;
   }
 
   public void GoToShootingShortRange() {
-    this.setPosition(Constants.PivotConstants.PivotPostions.ShootingPointShortRange);
     current_position = Constants.PivotConstants.PivotPostions.ShootingPointShortRange;
+    this.setPosition(current_position);
     position_index = 1;
   }
 
+  public void GoToDump() {
+    current_position = Constants.PivotConstants.PivotPostions.DumpPoint;
+    this.setPosition(current_position);
+    position_index = 2;
+  }
+
   public void GoToShootingMidRange() {
-    this.setPosition(Constants.PivotConstants.PivotPostions.ShootingPointMidRange);
     current_position = Constants.PivotConstants.PivotPostions.ShootingPointMidRange;
+    this.setPosition(current_position);
     position_index = 3;
   }
 

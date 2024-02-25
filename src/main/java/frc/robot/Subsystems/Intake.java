@@ -19,16 +19,12 @@ public class Intake extends SubsystemBase {
   private CANSparkMax conveyrUp;
   private CANSparkMax conveyrLow;
 
-  enum Stages {
-    Idle,
-    Triggered,
-    Stopped,
-    Post
-  }
+  private double[] topAccumulator = new double[20];
+  private double[] sideAccumulator = new double[20];
+  private int topAccumulatorIndex = 0;
+  private int sideAccumulatorIndex = 0;
 
-  Stages stage = Stages.Idle;
-
-  private final TimeOfFlight SideSensor = new TimeOfFlight(Constants.IntakeConstants.TimeOfFlightSideSensorID);
+  private final TimeOfFlight sideSensor = new TimeOfFlight(Constants.IntakeConstants.TimeOfFlightSideSensorID);
   private final TimeOfFlight topSensor = new TimeOfFlight(Constants.IntakeConstants.TimeOfFlightTopSensorID);
 
   public Intake() {
@@ -55,22 +51,69 @@ public class Intake extends SubsystemBase {
     conveyrLow.setSmartCurrentLimit(80);
     conveyrLow.setClosedLoopRampRate(1);
 
-    SideSensor.setRangingMode(RangingMode.Medium, 1);
-    topSensor.setRangingMode(RangingMode.Long, 1);
+    sideSensor.setRangingMode(RangingMode.Short, 1);
+    topSensor.setRangingMode(RangingMode.Short, 1);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putString("Intake Stage", stage.toString());
-    SmartDashboard.putBoolean("Intake A triggered?", this.SideTriggered());
-    SmartDashboard.putBoolean("Intake B triggered?", this.TopTriggered());
-    SmartDashboard.putNumber("Intake A distance", SideSensor.getRange());
-    SmartDashboard.putNumber("Intake b distance", topSensor.getRange());
+
+    SmartDashboard.putNumber("IN Top threshold", Constants.IntakeConstants.TopTreshholdIntake);
+    SmartDashboard.putBoolean("IN Top triggered?", this.TopTriggered());
+    SmartDashboard.putBoolean("IN Top Avg triggered?", this.TopAvgSensorTriggered());
+    SmartDashboard.putNumber("IN Top Accumulator avg", this.averageTopRange());
+    SmartDashboard.putNumber("IN Top distance", topSensor.getRange());
+    SmartDashboard.putNumber("IN Top sigma", topSensor.getRangeSigma());
+
+    SmartDashboard.putNumber("IN Side threshold", Constants.IntakeConstants.SideTreshholdIntake);
+    SmartDashboard.putBoolean("IN Side triggered?", this.SideTriggered());
+    SmartDashboard.putBoolean("IN Side Avg triggered?", this.SideAvgSensorTriggered());
+    SmartDashboard.putNumber("IN Side distance", sideSensor.getRange());
+    SmartDashboard.putNumber("IN Side Accumulator avg", this.averageSideRange());
+    SmartDashboard.putNumber("IN Side sigma", sideSensor.getRangeSigma());
+
+    SmartDashboard.putBoolean("IN either avg triggered?", this.EitherAvgSensorTriggered());
+    SmartDashboard.putBoolean("IN either triggered?", this.EitherSensorTriggered());
+
     SmartDashboard.putBoolean("intake head is on", intake.get() > 0);
   }
 
+  private double averageTopRange() {
+
+    topAccumulatorIndex++;
+    topAccumulatorIndex = topAccumulatorIndex > 19 ? 0 : topAccumulatorIndex;
+    topAccumulator[topAccumulatorIndex] = topSensor.getRange();
+
+    double topAvg = 0;
+    for (int i = 0; i < 20; i++) {
+      topAvg += topAccumulator[i];
+    }
+    return (topAvg / 20);
+  }
+
+  private double averageSideRange() {
+
+    sideAccumulatorIndex++;
+    sideAccumulatorIndex = sideAccumulatorIndex > 19 ? 0 : sideAccumulatorIndex;
+    sideAccumulator[sideAccumulatorIndex] = sideSensor.getRange();
+
+    double sideAvg = 0;
+    for (int i = 0; i < 20; i++) {
+      sideAvg += sideAccumulator[i];
+    }
+    return (sideAvg / 20);
+  }
+
+  public boolean TopAvgSensorTriggered() {
+    return this.averageTopRange() <= Constants.IntakeConstants.TopTreshholdIntake;
+  }
+
+  public boolean SideAvgSensorTriggered() {
+    return this.averageSideRange() <= Constants.IntakeConstants.SideTreshholdIntake;
+  }
+
   public boolean SideTriggered() {
-    return SideSensor.getRange() <= Constants.IntakeConstants.SideTreshholdIntake;
+    return sideSensor.getRange() <= Constants.IntakeConstants.SideTreshholdIntake;
   }
 
   public boolean TopTriggered() {
@@ -81,21 +124,20 @@ public class Intake extends SubsystemBase {
     return this.SideTriggered(); //|| this.TopTriggered();
   }
 
-  public void on() {
+  public boolean EitherAvgSensorTriggered() {
+    return this.SideAvgSensorTriggered() || this.TopAvgSensorTriggered();
+  }
 
+  public void on() {
     conveyrLow.set(Constants.IntakeConstants.ConveyrMotorSpeed);
     conveyrUp.set(-Constants.IntakeConstants.ConveyrMotorSpeed);
     intake.set(Constants.IntakeConstants.IntakeMotorSpeed);
-    
-    stage = Stages.Triggered;
   }
 
   public void off() {
     intake.stopMotor();
     conveyrLow.stopMotor();
     conveyrUp.stopMotor();
-
-    stage = Stages.Idle;
   }
 
   public void setIntakeSpeed(double in_speed){
@@ -105,19 +147,5 @@ public class Intake extends SubsystemBase {
   public void setConveyorSpeed(double con_speed){
     conveyrUp.set(con_speed);
     conveyrLow.set(con_speed);
-  }
-
-  public void TempTrig() {
-    if (stage==Stages.Idle) {
-      stage=Stages.Triggered;
-      setIntakeSpeed(Constants.IntakeConstants.ConveyrMotorSpeed);
-      setConveyorSpeed(Constants.IntakeConstants.ConveyrMotorSpeed);
-      
-    } else { if(stage==Stages.Triggered){
-        stage = Stages.Idle;
-        setIntakeSpeed(0);
-        setConveyorSpeed(0);
-      }
-    }
   }
 }

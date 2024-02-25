@@ -4,6 +4,7 @@
 
 package frc.robot.Subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -35,10 +36,13 @@ public class MasterController extends SubsystemBase {
     // and turn on shooting wheels
     if(m_firingHead.EitherSensorTriggered()){
       if(m_pivot.InStartingPosition()){
-        m_pivot.GoToShootingShortRange();
+        //m_pivot.GoToShootingShortRange();
       }
       m_firingHead.shooterSetSpeed(this.getFiringSpeed());
     }
+
+    SmartDashboard.putBoolean("MC any avg triggered?", this.anySensorTriggered());
+    SmartDashboard.putBoolean("MC any triggered?", this.anyAvgSensorTriggered());
   }
 
   public void intake_on() {
@@ -104,5 +108,9 @@ public class MasterController extends SubsystemBase {
 
   private boolean anySensorTriggered() {
     return m_firingHead.EitherSensorTriggered() || m_intake.EitherSensorTriggered();
+  }
+
+    private boolean anyAvgSensorTriggered() {
+    return m_firingHead.EitherAvgSensorTriggered() || m_intake.EitherAvgSensorTriggered();
   }
 }

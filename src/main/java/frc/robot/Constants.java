@@ -43,8 +43,8 @@ public class Constants {
         public static int TimeOfFlightASensorID = 89;
         public static int TimeOfFlightBSensorID = 90;
 
-        public static int CenterSensorThreshold = 30;
-        public static int SideSensorThreshold = 30;
+        public static int CenterSensorThreshold = 80;
+        public static int SideSensorThreshold = 40;
 
         public static double FiringSpeed = 0.4;
         public static double DumpSpeed = 0.3;
@@ -77,8 +77,8 @@ public class Constants {
         public static int TimeOfFlightSideSensorID = 88;
         public static int TimeOfFlightTopSensorID = 87;
 
-        public static double SideTreshholdIntake = 100;
-        public static double TopTreshholdIntake = 250;
+        public static double SideTreshholdIntake = 75;
+        public static double TopTreshholdIntake = 300;
 
         public static double IntakeMotorSpeed = 0.7; // Number Reduced For Testing  Original 1
         public static double ConveyrMotorSpeed = 0.4; // 0.8

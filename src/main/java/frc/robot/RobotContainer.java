@@ -4,17 +4,12 @@
 
 package frc.robot;
 
-import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -115,21 +110,25 @@ public class RobotContainer {
         new InstantCommand(() -> pivot.GoToStarting(), pivot) // pivot starting position
     );
 
-    driverController.rightTrigger().onTrue(
-        new SequentialCommandGroup(
-            new InstantCommand(() -> firingHead.shooterSetSpeed(masterController.getFiringSpeed()), firingHead), // shooter off
-            new WaitCommand(.2),
-            new InstantCommand(
-                () -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead), // transport motor off
-            new WaitCommand(1), // conveyr off
-            new InstantCommand(() -> firingHead.MasterStop(), firingHead)));//,
-            //new InstantCommand(() -> pivot.GoToStarting(), pivot)));
+    driverController.leftTrigger().onTrue(
+        new InstantCommand(() -> firingHead.Source(), firingHead).repeatedly()
+        .until(() -> firingHead.SideSensorTriggered())
+        .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
+    );
 
-    driverController.leftTrigger().onTrue(new RunCommand(() -> firingHead.Source(), firingHead)
-        .until(() -> (firingHead.SideSensorTriggered() 
-            || operatorController.leftTrigger().getAsBoolean()
-            || driverController.leftBumper().getAsBoolean()))
-        .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));
+    driverController.rightTrigger().onTrue(new InstantCommand(() -> firingHead.shooterSetSpeed(masterController.getFiringSpeed()), firingHead)
+    .andThen(new WaitCommand(.2))
+    .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead))
+    .andThen(new WaitCommand(1))
+    .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));      
+
+    driverController.rightBumper().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
+    .until(() -> (firingHead.CenterSensorTriggered() && pivot.InStartingPosition())
+        || (intake.EitherSensorTriggered() && !pivot.InStartingPosition())
+        || operatorController.leftTrigger().getAsBoolean()
+        || operatorController.start().getAsBoolean()
+        || driverController.start().getAsBoolean())
+    .andThen(new InstantCommand(() -> masterController.stopConveyors(), masterController)));  
 
     driverController.start().onTrue(home);
 
@@ -149,7 +148,9 @@ public class RobotContainer {
     operatorController.rightTrigger().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
         .until(() -> (firingHead.CenterSensorTriggered() && pivot.InStartingPosition())
             || (intake.EitherSensorTriggered() && !pivot.InStartingPosition())
-            || operatorController.leftTrigger().getAsBoolean())
+            || operatorController.leftTrigger().getAsBoolean()
+            || operatorController.start().getAsBoolean()
+            || driverController.start().getAsBoolean())
         .andThen(new InstantCommand(() -> masterController.stopConveyors(), masterController)));
   }
 
