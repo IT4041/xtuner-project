@@ -24,7 +24,7 @@ public class LED extends SubsystemBase {
 	private TrobotAddressableLED m_led = new TrobotAddressableLED(Constants.LEDConstants.LED_PWM_PORT, Constants.LEDConstants.LED_LENGTH);
 	private boolean noteIndicator = false;
 	private RobotContainer m_RobotContainer;
-	private int intensityDegrees = 10;
+	private int intensityDegrees = 1;
     private Color[] redWhiteArray = {Color.kRed, Color.kBlack};
     private Color[] blueWhiteArray = {Color.kBlue, Color.kBlack};
 	private Color[] pinkOrangeArray = {Constants.LEDConstants.pink, Constants.LEDConstants.orange};
