@@ -6,7 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
-
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,6 +27,7 @@ import frc.robot.generated.TunerConstants;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+
 public class RobotContainer {
   private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // kSpeedAt12VoltsMps desired top speed
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
@@ -42,8 +43,8 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final FiringHead firingHead = new FiringHead();
   private final Lift lift = new Lift();
-  private final LED led = new LED();
-  private final MasterController masterController = new MasterController(pivot, intake, firingHead, led);
+  private final LED led = new LED(this);
+  private final MasterController masterController = new MasterController(pivot, intake, firingHead, led, driverController, operatorController);
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
@@ -116,11 +117,15 @@ public class RobotContainer {
         .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
     );
 
+    driverController.y().onTrue(new InstantCommand(() -> pivot.up(), pivot));
+    driverController.a().onTrue(new InstantCommand(() -> pivot.down(), pivot));
+
     driverController.rightTrigger().onTrue(new InstantCommand(() -> firingHead.shooterSetSpeed(masterController.getFiringSpeed()), firingHead)
     .andThen(new WaitCommand(.2))
     .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead))
     .andThen(new WaitCommand(1))
-    .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));      
+    .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
+    .andThen(new InstantCommand(() -> pivot.GoToStarting(), pivot)));      
 
     driverController.rightBumper().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
     .until(() -> (firingHead.CenterSensorTriggered() && pivot.InStartingPosition())
@@ -160,5 +165,17 @@ public class RobotContainer {
 
   public void seedFieldRelative(){
     drivetrain.runOnce(() -> drivetrain.seedFieldRelative());
+  }
+
+public boolean isRedAlliance() {
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+        }
+        return true;
+  }
+
+  public boolean isDisabled() {
+    return DriverStation.isDisabled();
   }
 }

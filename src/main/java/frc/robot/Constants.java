@@ -16,7 +16,6 @@ public class Constants {
         public static int SparkmaxDeviceID = 8;
 
         public static final class PivotPIDConstants {
-
             public static final double kP = 0.02;
             public static final double kI = 0.0;
             public static final double kD = 0.0;
@@ -24,11 +23,12 @@ public class Constants {
         }
 
         public static final class PivotPostions {
+            
             public static final double ZeroOffset = 124.4;
             
             public static final double ShootingPointMidRange = 41.5; //auto shooting pos 2 39.5
             public static final double DumpPoint = 36;
-            public static final double ShootingPointShortRange = 27; //auto shooting pos 1
+            public static final double ShootingPointShortRange = 30; //auto shooting pos 1
             public static final double StartingPoint = 21; //up close shooting
             public static final double[] PivotPoses = {StartingPoint, ShootingPointShortRange, DumpPoint, ShootingPointMidRange};
         }
@@ -96,15 +96,13 @@ public class Constants {
     }
 
     public static final class LEDConstants{
-        public static final int PWMPort = 5;
-        public static final int StripLength = 12;
-
-        public static final int PWMPortBack = 6;
-        public static final int StripLengthBack = 13;
-
+        public static final int LED_PWM_PORT = 6;
+        public static final int LED_LENGTH = 50;
+    
         public static final Color purple = new Color(255, 1, 255);
         public static final Color yellow = new Color(255, 128, 1);
-        public static final Color orange = new Color(1, 255, 255);
+        public static final Color orange = new Color(255, 55, 5);
+        public static final Color pink = new Color(255, 50, 30);
         public static final Color green = new Color(1, 255, 1);
         public static final Color red = new Color(255, 1, 1);
 
