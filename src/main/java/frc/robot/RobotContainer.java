@@ -26,6 +26,7 @@ import frc.robot.Subsystems.Pivot;
 import frc.robot.generated.TunerConstants;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 
 public class RobotContainer {
@@ -117,8 +118,8 @@ public class RobotContainer {
         .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
     );
 
-    driverController.y().onTrue(new InstantCommand(() -> pivot.up(), pivot));
-    driverController.a().onTrue(new InstantCommand(() -> pivot.down(), pivot));
+    // driverController.y().onTrue(new InstantCommand(() -> pivot.up(), pivot));
+    // driverController.a().onTrue(new InstantCommand(() -> pivot.down(), pivot));
 
     driverController.rightTrigger().onTrue(new InstantCommand(() -> firingHead.shooterSetSpeed(masterController.getFiringSpeed()), firingHead)
     .andThen(new WaitCommand(.2))
@@ -127,13 +128,13 @@ public class RobotContainer {
     .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
     .andThen(new InstantCommand(() -> pivot.GoToStarting(), pivot)));      
 
-    driverController.rightBumper().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
-    .until(() -> (firingHead.CenterSensorTriggered() && pivot.InStartingPosition())
-        || (intake.EitherSensorTriggered() && !pivot.InStartingPosition())
-        || operatorController.leftTrigger().getAsBoolean()
-        || operatorController.start().getAsBoolean()
-        || driverController.start().getAsBoolean())
-    .andThen(new InstantCommand(() -> masterController.stopConveyors(), masterController)));  
+    // driverController.rightBumper().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
+    // .until(() -> (firingHead.CenterSensorTriggered() && pivot.InStartingPosition())
+    //     || (intake.EitherSensorTriggered() && !pivot.InStartingPosition())
+    //     || operatorController.leftTrigger().getAsBoolean()
+    //     || operatorController.start().getAsBoolean()
+    //     || driverController.start().getAsBoolean())
+    // .andThen(new InstantCommand(() -> masterController.stopConveyors(), masterController)));  
 
     driverController.start().onTrue(home);
 
@@ -160,7 +161,12 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return trajChooser.getSelected();
+    // Load the path you want to follow using its name in the GUI
+    PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
+
+    // Create a path following command using AutoBuilder. This will also trigger event markers.
+    return AutoBuilder.followPath(path);
+    //return trajChooser.getSelected();
   }
 
   public void seedFieldRelative(){

@@ -50,15 +50,15 @@ public class MasterController extends SubsystemBase {
     }
 
     //shuffle note that was stopped in intake up to shooterhead as soon as pivot is in starting position
-    if(m_intake.EitherSensorTriggered() && m_pivot.InStartingPosition()){
-      SequentialCommandGroup  shuffle = new RunCommand(() -> this.runConveyors(), this)
-        .until(() -> (m_firingHead.CenterSensorTriggered() && m_pivot.InStartingPosition())
-            || m_operatorController.leftTrigger().getAsBoolean()
-            || m_operatorController.start().getAsBoolean()
-            || m_driverController.start().getAsBoolean())
-        .andThen(new InstantCommand(() -> this.stopConveyors(), this));
-        shuffle.execute();
-    }
+    // if(m_intake.EitherSensorTriggered() && m_pivot.InStartingPosition()){
+    //   SequentialCommandGroup  shuffle = new RunCommand(() -> this.runConveyors(), this)
+    //     .until(() -> (m_firingHead.CenterSensorTriggered() && m_pivot.InStartingPosition())
+    //         || m_operatorController.leftTrigger().getAsBoolean()
+    //         || m_operatorController.start().getAsBoolean()
+    //         || m_driverController.start().getAsBoolean())
+    //     .andThen(new InstantCommand(() -> this.stopConveyors(), this));
+    //     shuffle.execute();
+    // }
 
     SmartDashboard.putBoolean("MC any avg triggered?", this.anySensorTriggered());
     SmartDashboard.putBoolean("MC any triggered?", this.anyAvgSensorTriggered());
