@@ -4,6 +4,8 @@
 
 package frc.robot.Commands.Autonomous;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -21,15 +23,18 @@ public class WeekZeroAuto extends SequentialCommandGroup {
   private final FiringHead m_firingHead;
   private final MasterController m_masterController;
   private final CommandSwerveDrivetrain m_SwerveSubsystem;
+  private final SwerveRequest.FieldCentric m_drive;
 
   /** Creates a new WeekZeroAuto. */
   public WeekZeroAuto(Pivot in_pivot, Intake in_intake, FiringHead in_firingHead, MasterController in_masterController,
-      CommandSwerveDrivetrain in_SwerveSubsystem) {
+      CommandSwerveDrivetrain in_SwerveSubsystem, SwerveRequest.FieldCentric drive) {
     m_intake = in_intake;
     m_pivot = in_pivot;
     m_firingHead = in_firingHead;
     m_masterController = in_masterController;
     m_SwerveSubsystem = in_SwerveSubsystem;
+    m_drive = drive;
+    
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
@@ -37,9 +42,10 @@ public class WeekZeroAuto extends SequentialCommandGroup {
     addCommands(new AutoSequences(m_pivot, m_intake, m_firingHead, m_masterController).AutoStartingSequence());
 
     addCommands(new ParallelCommandGroup(
-        new RunCommand(() -> m_SwerveSubsystem.goForward(-0.4), m_SwerveSubsystem)
+        //new RunCommand(() -> m_SwerveSubsystem.goForward(-0.4, drive), m_SwerveSubsystem)
+        new RunCommand(() -> m_SwerveSubsystem.goForward(drive), m_SwerveSubsystem)
             .withTimeout(3.35)
-            .andThen(new InstantCommand(() -> m_SwerveSubsystem.stop(), m_SwerveSubsystem)),
+            .andThen(new InstantCommand(() -> m_SwerveSubsystem.stop(drive), m_SwerveSubsystem)),
         new RunCommand(() -> m_masterController.runConveyors(), m_masterController)
             .until(() -> m_firingHead.EitherSensorTriggered())
             .andThen(new InstantCommand(() -> m_masterController.stopConveyors(), m_masterController))));

@@ -121,7 +121,7 @@ public class FiringHead extends SubsystemBase {
 
   public void Feed() {
     transportMotor.set(Constants.FiringHeadConstants.TransportMotorSpeed);
-    fireMotor.set(Constants.FiringHeadConstants.FiringSpeed);
+    fireMotor.set(Constants.FiringHeadConstants.NearFiringSpeed);
   }
 
   public void Source() {

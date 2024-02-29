@@ -114,12 +114,12 @@ public class MasterController extends SubsystemBase {
         retSpeed = Constants.FiringHeadConstants.DumpSpeed;
         break;
       case 1:
-        retSpeed = Constants.FiringHeadConstants.FiringSpeed;
+        retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
         break;
       case 0:
-        retSpeed = Constants.FiringHeadConstants.FiringSpeed;
+        retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
         break;
-      default:retSpeed = Constants.FiringHeadConstants.FiringSpeed;
+      default:retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
         break;
     }
     return retSpeed;

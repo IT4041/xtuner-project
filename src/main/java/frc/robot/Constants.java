@@ -46,11 +46,11 @@ public class Constants {
         public static int CenterSensorThreshold = 80;
         public static int SideSensorThreshold = 40;
 
-        public static double FiringSpeed = 0.4;
+        public static double NearFiringSpeed = 0.41;
         public static double DumpSpeed = 0.3;
         public static double FarFiringSpeed = 0.45;
 
-        public static double TransportMotorSpeed = 0.4;
+        public static double TransportMotorSpeed = 0.5;
 
         public static double SourceSpeed = -0.3;
         public static double SourceTransportMotorSpeed = -0.4;

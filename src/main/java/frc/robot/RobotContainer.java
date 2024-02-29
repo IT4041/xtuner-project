@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.Autonomous.AutoSequences;
+import frc.robot.Commands.Autonomous.WeekZeroAuto;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
 import frc.robot.Subsystems.FiringHead;
 import frc.robot.Subsystems.Intake;
@@ -58,9 +59,12 @@ public class RobotContainer {
 
   public RobotContainer() {
 
+    drivetrain.getPigeon2().setYaw(-90);
+    drivetrain.tareEverything();
+
     AutoSequences autoSeq = new AutoSequences(pivot, intake, firingHead, masterController);
 
-    NamedCommands.registerCommand("near_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FiringSpeed), firingHead));
+    NamedCommands.registerCommand("near_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed), firingHead));
     NamedCommands.registerCommand("far_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), firingHead));
     NamedCommands.registerCommand("dump_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.DumpSpeed), firingHead));
 
@@ -124,9 +128,9 @@ public class RobotContainer {
     driverController.rightTrigger().onTrue(new InstantCommand(() -> firingHead.shooterSetSpeed(masterController.getFiringSpeed()), firingHead)
     .andThen(new WaitCommand(.2))
     .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead))
-    .andThen(new WaitCommand(1))
-    .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
-    .andThen(new InstantCommand(() -> pivot.GoToStarting(), pivot)));      
+    .andThen(new WaitCommand(3))
+    .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));
+    //.andThen(new InstantCommand(() -> pivot.GoToStarting(), pivot)));      
 
     // driverController.rightBumper().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
     // .until(() -> (firingHead.CenterSensorTriggered() && pivot.InStartingPosition())
@@ -161,12 +165,8 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    // Load the path you want to follow using its name in the GUI
-    PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
-
-    // Create a path following command using AutoBuilder. This will also trigger event markers.
-    return AutoBuilder.followPath(path);
-    //return trajChooser.getSelected();
+    WeekZeroAuto weekZeroAuto =  new WeekZeroAuto(pivot, intake, firingHead, masterController, drivetrain, drive);
+    return weekZeroAuto;
   }
 
   public void seedFieldRelative(){

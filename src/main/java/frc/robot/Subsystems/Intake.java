@@ -29,7 +29,7 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
 
-    // lower intake
+    // intake
     intake = new CANSparkMax(Constants.IntakeConstants.LowerIntakeSparkmaxDeviceID, MotorType.kBrushless);
     intake.restoreFactoryDefaults();
     intake.setIdleMode(IdleMode.kBrake);

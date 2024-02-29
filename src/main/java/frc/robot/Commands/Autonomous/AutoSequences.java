@@ -31,7 +31,7 @@ public class AutoSequences {
     public SequentialCommandGroup AutoShootingSequenceNear() {
 
         SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
-                new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FiringSpeed), m_firingHead),
+                new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed), m_firingHead),
                 new InstantCommand(() -> m_pivot.GoToStarting(), m_pivot),
                 new WaitCommand(0.55),
                 new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), m_firingHead));
