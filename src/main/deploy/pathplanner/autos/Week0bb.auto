@@ -14,61 +14,31 @@
         {
           "type": "named",
           "data": {
-            "name": "SetShooterSpeed"
+            "name": "starting_sequence"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "GoToShootingShortRange"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.55
+            "name": "run_conveyors"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "TransportOn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterOff"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "PivotStarting"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeOn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ConveyorOn"
+            "name": "GoToStarting"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Example Path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fire_far"
           }
         }
       ]
