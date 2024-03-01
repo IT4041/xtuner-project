@@ -6,16 +6,21 @@ package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.Autonomous.AutoSequences;
+import frc.robot.Commands.Autonomous.MoveOnly;
 import frc.robot.Commands.Autonomous.WeekZeroAuto;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
 import frc.robot.Subsystems.FiringHead;
@@ -59,8 +64,8 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    drivetrain.getPigeon2().setYaw(-90);
-    drivetrain.tareEverything();
+    // drivetrain.getPigeon2().setYaw(-90);
+    // drivetrain.tareEverything();
 
     AutoSequences autoSeq = new AutoSequences(pivot, intake, firingHead, masterController);
 
@@ -165,8 +170,18 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    WeekZeroAuto weekZeroAuto =  new WeekZeroAuto(pivot, intake, firingHead, masterController, drivetrain, drive);
-    return weekZeroAuto;
+    return trajChooser.getSelected();
+    // return new WeekZeroAuto(pivot, intake, firingHead, masterController, drivetrain, drive);
+    //return new MoveOnly(drivetrain, drive);
+    // return Commands.sequence(
+    //   new InstantCommand(()->drivetrain.seedFieldRelative(new Pose2d(1, 1, new Rotation2d(0))))
+      // ,
+      // drivetrain.applyRequest(() -> drive.withVelocityX(MaxSpeed) // Drive forward with
+      //       // negative Y (forward)
+      //       .withVelocityY(0) // Drive left with negative X (left)
+      //       .withRotationalRate(0) // Drive counterclockwise with negative X (left)
+      //   )
+        // );
   }
 
   public void seedFieldRelative(){

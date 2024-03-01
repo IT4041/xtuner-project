@@ -35,28 +35,29 @@ public class WeekZeroAuto extends SequentialCommandGroup {
     m_SwerveSubsystem = in_SwerveSubsystem;
     m_drive = drive;
     
-
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-
-    addCommands(new AutoSequences(m_pivot, m_intake, m_firingHead, m_masterController).AutoStartingSequence());
+    addCommands(new SequentialCommandGroup(
+        new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed), m_firingHead),
+        new InstantCommand(() -> m_pivot.GoToShootingShortRange(), m_pivot),
+        new WaitCommand(0.55),
+        new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), m_firingHead),
+        new WaitCommand(1),
+        new InstantCommand(() -> m_firingHead.shooterSetSpeed(0), m_firingHead),
+        new InstantCommand(() -> m_pivot.GoToStarting(), m_pivot),
+        new InstantCommand(() -> m_intake.setIntakeSpeed(Constants.IntakeConstants.IntakeMotorSpeed), m_intake),
+        new InstantCommand(() -> m_intake.setConveyorSpeed(Constants.IntakeConstants.ConveyrMotorSpeed), m_intake)));
 
     addCommands(new ParallelCommandGroup(
-        //new RunCommand(() -> m_SwerveSubsystem.goForward(-0.4, drive), m_SwerveSubsystem)
-        new RunCommand(() -> m_SwerveSubsystem.goForward(drive), m_SwerveSubsystem)
-            .withTimeout(3.35)
-            .andThen(new InstantCommand(() -> m_SwerveSubsystem.stop(drive), m_SwerveSubsystem)),
+        new RunCommand(() -> m_SwerveSubsystem.goForward(m_drive), m_SwerveSubsystem)
+            .withTimeout(2)
+            .andThen(new InstantCommand(() -> m_SwerveSubsystem.stop(m_drive), m_SwerveSubsystem)),
         new RunCommand(() -> m_masterController.runConveyors(), m_masterController)
             .until(() -> m_firingHead.EitherSensorTriggered())
             .andThen(new InstantCommand(() -> m_masterController.stopConveyors(), m_masterController))));
 
-    addCommands(new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed),
-        m_firingHead));
-    addCommands(new InstantCommand(
-        () -> m_pivot.GoToShootingMidRange(), m_pivot)); // 37
+    addCommands(new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead));
+    addCommands(new InstantCommand(() -> m_pivot.GoToShootingMidRange(), m_pivot)); // 37
     addCommands(new WaitCommand(0.5));
-    addCommands(new InstantCommand(
-        () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), m_firingHead));
+    addCommands(new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), m_firingHead));
     addCommands(new WaitCommand(2));
 
     addCommands(new ParallelCommandGroup(
@@ -69,7 +70,6 @@ public class WeekZeroAuto extends SequentialCommandGroup {
         new InstantCommand(() -> m_intake.setIntakeSpeed(0), m_intake) // intake
     ));
 
-    addCommands(
-        new InstantCommand(() -> m_pivot.GoToStarting(), m_pivot));
+    addCommands( new InstantCommand(() -> m_pivot.GoToStarting(), m_pivot));
   }
 }

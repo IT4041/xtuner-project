@@ -61,6 +61,11 @@
         "top": 36,
         "width": 16.541748046875
       },
+      "/SmartDashboard/Auto Chooser": {
+        "window": {
+          "visible": true
+        }
+      },
       "/SmartDashboard/Field": {
         "bottom": 544,
         "builtin": "2024 Crescendo",
@@ -68,7 +73,10 @@
         "left": 46,
         "right": 1088,
         "top": 36,
-        "width": 16.541748046875
+        "width": 16.541748046875,
+        "window": {
+          "visible": true
+        }
       }
     }
   },

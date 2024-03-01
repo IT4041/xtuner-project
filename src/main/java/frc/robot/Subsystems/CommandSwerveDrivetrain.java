@@ -116,8 +116,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     }
 
     public void commandForMovement(double velocityX, double velocityY, double rotationalRate, SwerveRequest.FieldCentric drive){
-        this.applyRequest(() -> drive.withVelocityX(velocityX) // Drive forward with
-            // negative Y (forward)
+        this.applyRequest(() -> drive.withVelocityX(velocityX) // Drive forward with negative Y (forward)
             .withVelocityY(velocityY) // Drive left with negative X (left)
             .withRotationalRate(rotationalRate)); // Drive counterclockwise with negative X (left)
     }
@@ -127,7 +126,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         //     // negative Y (forward)
         //     .withVelocityY(0) // Drive left with negative X (left)
         //     .withRotationalRate(0)); // Drive counterclockwise with negative X (left)
-        this.commandForMovement(-0.125, 0, 0, drive);
+        this.commandForMovement(-0.2, 0, 0, drive);
     }
 
     public void stop(SwerveRequest.FieldCentric drive) {
