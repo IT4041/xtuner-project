@@ -1,0 +1,79 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.75,
+      "y": 6.0
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "SetShooterSpeed"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GoToShootingShortRange"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.55
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TransportOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterOff"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PivotStarting"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeOn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ConveyorOn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Example Path"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

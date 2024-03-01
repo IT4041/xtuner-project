@@ -98,7 +98,7 @@ public class TunerConstants {
                         .withDriveInertia(kDriveInertia)
                         .withSteerFrictionVoltage(kSteerFrictionVoltage)
                         .withDriveFrictionVoltage(kDriveFrictionVoltage)
-                        .withFeedbackSource(SteerFeedbackType.FusedCANcoder)
+                        .withFeedbackSource(SteerFeedbackType.RemoteCANcoder) //licened value: FusedCANcoder
                         .withCouplingGearRatio(kCoupleRatio)
                         .withSteerMotorInverted(kSteerMotorReversed);
 

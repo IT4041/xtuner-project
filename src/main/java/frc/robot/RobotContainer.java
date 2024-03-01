@@ -67,24 +67,35 @@ public class RobotContainer {
     // drivetrain.getPigeon2().setYaw(-90);
     // drivetrain.tareEverything();
 
-    AutoSequences autoSeq = new AutoSequences(pivot, intake, firingHead, masterController);
+    // AutoSequences autoSeq = new AutoSequences(pivot, intake, firingHead, masterController);
 
-    NamedCommands.registerCommand("near_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed), firingHead));
-    NamedCommands.registerCommand("far_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), firingHead));
-    NamedCommands.registerCommand("dump_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.DumpSpeed), firingHead));
+    NamedCommands.registerCommand("SetShooterSpeed", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed),firingHead));
+    NamedCommands.registerCommand("GoToShootingShortRange", new InstantCommand(() -> pivot.GoToShootingShortRange(), pivot));
+    // new WaitCommand(0.55),
+    
+    NamedCommands.registerCommand("TransportOn",  new InstantCommand( () -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead));
+    // new WaitCommand(1),
+    NamedCommands.registerCommand("ShooterOff", new InstantCommand(() -> firingHead.shooterSetSpeed(0d), firingHead));
+    NamedCommands.registerCommand("PivotStarting", new InstantCommand(() -> pivot.GoToStarting(), pivot));
+    NamedCommands.registerCommand("IntakeOn", new InstantCommand(() -> intake.setIntakeSpeed(Constants.IntakeConstants.IntakeMotorSpeed), intake));
+    NamedCommands.registerCommand("ConveyorOn", new InstantCommand(() -> intake.setConveyorSpeed(Constants.IntakeConstants.ConveyrMotorSpeed), intake));
 
-    NamedCommands.registerCommand("pivot_dump", new InstantCommand(() -> pivot.GoToDump(), pivot));
-    NamedCommands.registerCommand("pivot_mid", new InstantCommand(() -> pivot.GoToShootingMidRange(), pivot));
-    NamedCommands.registerCommand("pivot_short", new InstantCommand(() -> pivot.GoToShootingShortRange(), pivot));
-    NamedCommands.registerCommand("pivot_start", new InstantCommand(() -> pivot.GoToStarting(), pivot));
+    // NamedCommands.registerCommand("near_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed), firingHead));
+    // NamedCommands.registerCommand("far_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), firingHead));
+    // NamedCommands.registerCommand("dump_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.DumpSpeed), firingHead));
 
-    NamedCommands.registerCommand("starting_sequence", autoSeq.AutoStartingSequence());
-    NamedCommands.registerCommand("run_conveyors", autoSeq.AutoConveyorSequence());
-    NamedCommands.registerCommand("stop_conveyors", autoSeq.AutoStopSequence());
+    // NamedCommands.registerCommand("pivot_dump", new InstantCommand(() -> pivot.GoToDump(), pivot));
+    // NamedCommands.registerCommand("pivot_mid", new InstantCommand(() -> pivot.GoToShootingMidRange(), pivot));
+    // NamedCommands.registerCommand("pivot_short", new InstantCommand(() -> pivot.GoToShootingShortRange(), pivot));
+    // NamedCommands.registerCommand("pivot_start", new InstantCommand(() -> pivot.GoToStarting(), pivot));
 
-    NamedCommands.registerCommand("fire_dump", autoSeq.AutoShootingSequenceDump());
-    NamedCommands.registerCommand("fire_near", autoSeq.AutoShootingSequenceNear());
-    NamedCommands.registerCommand("fire_far", autoSeq.AutoShootingSequenceFar());
+    // NamedCommands.registerCommand("starting_sequence", autoSeq.AutoStartingSequence());
+    // NamedCommands.registerCommand("run_conveyors", autoSeq.AutoConveyorSequence());
+    // NamedCommands.registerCommand("stop_conveyors", autoSeq.AutoStopSequence());
+
+    // NamedCommands.registerCommand("fire_dump", autoSeq.AutoShootingSequenceDump());
+    // NamedCommands.registerCommand("fire_near", autoSeq.AutoShootingSequenceNear());
+    // NamedCommands.registerCommand("fire_far", autoSeq.AutoShootingSequenceFar());
 
     trajChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", trajChooser);
