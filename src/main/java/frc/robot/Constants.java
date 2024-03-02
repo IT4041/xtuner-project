@@ -50,7 +50,7 @@ public class Constants {
         public static double DumpSpeed = 0.3;
         public static double FarFiringSpeed = 0.45;
 
-        public static double TransportMotorSpeed = 0.5;
+        public static double TransportMotorSpeed = 0.65;
 
         public static double SourceSpeed = -0.3;
         public static double SourceTransportMotorSpeed = -0.4;
@@ -96,7 +96,7 @@ public class Constants {
     }
 
     public static final class LEDConstants{
-        public static final int LED_PWM_PORT = 6;
+        public static final int LED_PWM_PORT = 4;
         public static final int LED_LENGTH = 50;
     
         public static final Color purple = new Color(255, 1, 255);

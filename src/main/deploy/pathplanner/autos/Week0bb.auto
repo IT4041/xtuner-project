@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.75,
-      "y": 6.0
+      "x": 1.37,
+      "y": 5.55
     },
-    "rotation": 180.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -18,27 +18,40 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "run_conveyors"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "GoToStarting"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Example Path"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "run_conveyors"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Example Path"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
             "name": "fire_far"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stop_conveyors"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GoToStarting"
           }
         }
       ]

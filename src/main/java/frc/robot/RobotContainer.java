@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.Autonomous.AutoSequences;
 import frc.robot.Commands.Autonomous.MoveOnly;
-import frc.robot.Commands.Autonomous.WeekZeroAuto;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
 import frc.robot.Subsystems.FiringHead;
 import frc.robot.Subsystems.Intake;
@@ -88,13 +87,14 @@ public class RobotContainer {
     NamedCommands.registerCommand("GoToShootingShortRange", new InstantCommand(() -> pivot.GoToShootingShortRange(), pivot));
     NamedCommands.registerCommand("GoToStarting", new InstantCommand(() -> pivot.GoToStarting(), pivot));
 
-    NamedCommands.registerCommand("starting_sequence", autoSeq.AutoStartingSequence());
-    NamedCommands.registerCommand("run_conveyors", autoSeq.AutoConveyorSequence());
-    NamedCommands.registerCommand("stop_conveyors", autoSeq.AutoStopSequence());
+    NamedCommands.registerCommand("starting_sequence", autoSeq.StartingSequence());
+    NamedCommands.registerCommand("run_conveyors", autoSeq.ConveyorSequence());
+    NamedCommands.registerCommand("run_conveyors_until", autoSeq.ConveyorSequenceUntilSensor());
+    NamedCommands.registerCommand("stop_conveyors", autoSeq.StopSequence());
 
-    NamedCommands.registerCommand("fire_dump", autoSeq.AutoShootingSequenceDump());
-    NamedCommands.registerCommand("fire_near", autoSeq.AutoShootingSequenceNear());
-    NamedCommands.registerCommand("fire_far", autoSeq.AutoShootingSequenceFar());
+    NamedCommands.registerCommand("fire_dump", autoSeq.ShootingSequence_Dump());
+    NamedCommands.registerCommand("fire_near", autoSeq.ShootingSequence_Near());
+    NamedCommands.registerCommand("fire_far", autoSeq.ShootingSequence_Far());
 
     trajChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", trajChooser);
@@ -209,4 +209,5 @@ public boolean isRedAlliance() {
   public boolean isDisabled() {
     return DriverStation.isDisabled();
   }
+
 }

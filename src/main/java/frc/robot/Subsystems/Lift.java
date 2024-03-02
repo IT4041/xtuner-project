@@ -30,12 +30,12 @@ public class Lift extends SubsystemBase {
         limit_switch = new DigitalInput(Constants.LiftConstants.limitSwitchPort);
 
         m_Encoder = lift.getEncoder();
-        //ResetEncoder();
+        ResetEncoder();
 
-        lift.setSoftLimit(SoftLimitDirection.kForward, Constants.LiftConstants.Extended);
-        lift.setSoftLimit(SoftLimitDirection.kReverse, Constants.LiftConstants.Home);
-        lift.enableSoftLimit(SoftLimitDirection.kForward, true);
-        lift.enableSoftLimit(SoftLimitDirection.kReverse, true);
+         lift.setSoftLimit(SoftLimitDirection.kForward, Constants.LiftConstants.Extended);
+        // lift.setSoftLimit(SoftLimitDirection.kReverse, Constants.LiftConstants.Home);
+         lift.enableSoftLimit(SoftLimitDirection.kForward, true);
+        // lift.enableSoftLimit(SoftLimitDirection.kReverse, true);
         lift.burnFlash();
         SmartDashboard.putNumber("Lift", m_Encoder.getPosition());
     }

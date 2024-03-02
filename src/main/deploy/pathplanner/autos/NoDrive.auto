@@ -2,25 +2,19 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.75,
-      "y": 6.0
+      "x": 0.749954642766429,
+      "y": 4.30988061976124
     },
-    "rotation": 180.0
+    "rotation": -54.462322208025654
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "Example Path"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "SetShooterSpeed"
+            "name": "starting_sequence"
           }
         }
       ]
