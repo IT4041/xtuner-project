@@ -119,18 +119,9 @@ public class FiringHead extends SubsystemBase {
     return (sideAvg / 20);
   }
 
-  public void Feed() {
-    transportMotor.set(Constants.FiringHeadConstants.TransportMotorSpeed);
-    fireMotor.set(Constants.FiringHeadConstants.NearFiringSpeed);
-  }
-
   public void Source() {
     transportMotor.set(Constants.FiringHeadConstants.SourceTransportMotorSpeed);
     fireMotor.set(Constants.FiringHeadConstants.SourceSpeed);
-  }
-
-  public void StopTransport() {
-    transportMotor.stopMotor();
   }
 
   public boolean CenterAvgSensorTriggered() {

@@ -34,7 +34,7 @@ public class AutoSequences {
                 new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed), m_firingHead),
                 new InstantCommand(() -> m_pivot.GoToShootingShortRange(), m_pivot),
                 new WaitCommand(1),
-                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), m_firingHead),
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
                 new WaitCommand(1.5));
 
         return shootingCommand;
@@ -46,7 +46,7 @@ public class AutoSequences {
                 new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead),
                 new InstantCommand(() -> m_pivot.GoToShootingMidRange(), m_pivot),
                 new WaitCommand(2.5),
-                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), m_firingHead),
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
                 new WaitCommand(1.5));
 
         return shootingCommand;
@@ -58,7 +58,7 @@ public class AutoSequences {
                 new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.DumpSpeed), m_firingHead),
                 new InstantCommand(() -> m_pivot.GoToDump(), m_pivot),
                 new WaitCommand(0.55),
-                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), m_firingHead));
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead));
 
         return shootingCommand;
     }

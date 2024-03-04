@@ -72,10 +72,6 @@ public class MasterController extends SubsystemBase {
     m_intake.off();
   }
 
-  public void firingHead_feed() {
-    m_firingHead.Feed();
-  }
-
   public void firingHead_MasterStop() {
     m_firingHead.MasterStop();
   }

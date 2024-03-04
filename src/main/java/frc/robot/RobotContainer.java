@@ -72,6 +72,7 @@ public class RobotContainer {
     // new WaitCommand(0.55),
     
     NamedCommands.registerCommand("TransportOn",  new InstantCommand( () -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead));
+    NamedCommands.registerCommand("ShootTransportOn",  new InstantCommand( () -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead));
     // new WaitCommand(1),
     NamedCommands.registerCommand("ShooterOff", new InstantCommand(() -> firingHead.shooterSetSpeed(0d), firingHead));
     NamedCommands.registerCommand("PivotStarting", new InstantCommand(() -> pivot.GoToStarting(), pivot));
@@ -142,7 +143,7 @@ public class RobotContainer {
 
     driverController.rightTrigger().onTrue(new InstantCommand(() -> firingHead.shooterSetSpeed(masterController.getFiringSpeed()), firingHead)
     .andThen(new WaitCommand(.2))
-    .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead))
+    .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead))
     .andThen(new WaitCommand(3))
     .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));
     //.andThen(new InstantCommand(() -> pivot.GoToStarting(), pivot)));      
