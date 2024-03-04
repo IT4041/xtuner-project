@@ -7,20 +7,16 @@ package frc.robot;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.Autonomous.AutoSequences;
-import frc.robot.Commands.Autonomous.MoveOnly;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
 import frc.robot.Subsystems.FiringHead;
 import frc.robot.Subsystems.Intake;
@@ -31,8 +27,6 @@ import frc.robot.Subsystems.Pivot;
 import frc.robot.generated.TunerConstants;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.path.PathPlannerPath;
-
 
 public class RobotContainer {
   private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // kSpeedAt12VoltsMps desired top speed
@@ -170,7 +164,6 @@ public class RobotContainer {
     operatorController.y().onTrue(new InstantCommand(() -> pivot.up(), pivot));
     operatorController.a().onTrue(new InstantCommand(() -> pivot.down(), pivot));
 
-    //TODO: make head go to start on intake on
     operatorController.rightTrigger().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
         .until(() -> (firingHead.CenterSensorTriggered() && pivot.InStartingPosition())
             || (intake.EitherSensorTriggered() && !pivot.InStartingPosition())
