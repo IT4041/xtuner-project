@@ -49,44 +49,33 @@ public class RobotContainer {
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric driving in open loop
-  // private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
-  // private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+
   private final Telemetry logger = new Telemetry(MaxSpeed);
 
   private SendableChooser<Command> trajChooser;
 
   public RobotContainer() {
 
-    // drivetrain.getPigeon2().setYaw(-90);
-    // drivetrain.tareEverything();
-
     AutoSequences autoSeq = new AutoSequences(pivot, intake, firingHead, masterController);
 
     NamedCommands.registerCommand("SetShooterSpeed", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed),firingHead));
-    // new WaitCommand(0.55),
-    
     NamedCommands.registerCommand("TransportOn",  new InstantCommand( () -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed), firingHead));
     NamedCommands.registerCommand("ShootTransportOn",  new InstantCommand( () -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead));
-    // new WaitCommand(1),
     NamedCommands.registerCommand("ShooterOff", new InstantCommand(() -> firingHead.shooterSetSpeed(0d), firingHead));
     NamedCommands.registerCommand("PivotStarting", new InstantCommand(() -> pivot.GoToStarting(), pivot));
     NamedCommands.registerCommand("IntakeOn", new InstantCommand(() -> intake.setIntakeSpeed(Constants.IntakeConstants.IntakeMotorSpeed), intake));
     NamedCommands.registerCommand("ConveyorOn", new InstantCommand(() -> intake.setConveyorSpeed(Constants.IntakeConstants.ConveyrMotorSpeed), intake));
-
     NamedCommands.registerCommand("near_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.NearFiringSpeed), firingHead));
     NamedCommands.registerCommand("far_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), firingHead));
     NamedCommands.registerCommand("dump_shooting", new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.DumpSpeed), firingHead));
-
     NamedCommands.registerCommand("GoToDump", new InstantCommand(() -> pivot.GoToDump(), pivot));
     NamedCommands.registerCommand("GoToShootingMidRange", new InstantCommand(() -> pivot.GoToShootingMidRange(), pivot));
     NamedCommands.registerCommand("GoToShootingShortRange", new InstantCommand(() -> pivot.GoToShootingShortRange(), pivot));
     NamedCommands.registerCommand("GoToStarting", new InstantCommand(() -> pivot.GoToStarting(), pivot));
-
     NamedCommands.registerCommand("starting_sequence", autoSeq.StartingSequence());
     NamedCommands.registerCommand("run_conveyors", autoSeq.ConveyorSequence());
     NamedCommands.registerCommand("run_conveyors_until", autoSeq.ConveyorSequenceUntilSensor());
     NamedCommands.registerCommand("stop_conveyors", autoSeq.StopSequence());
-
     NamedCommands.registerCommand("fire_dump", autoSeq.ShootingSequence_Dump());
     NamedCommands.registerCommand("fire_near", autoSeq.ShootingSequence_Near());
     NamedCommands.registerCommand("fire_far", autoSeq.ShootingSequence_Far());
@@ -105,17 +94,9 @@ public class RobotContainer {
             .withRotationalRate(-driverController.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
-    // driverController.a().whileTrue(drivetrain.applyRequest(() -> brake));
-    // driverController.b().whileTrue(drivetrain
-    //     .applyRequest(() -> point
-    //         .withModuleDirection(new Rotation2d(-driverController.getLeftY(), -driverController.getLeftX()))));
-
     // reset the field-centric heading on left bumper press
     driverController.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
 
-    // if (Utils.isSimulation()) {
-    //   drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
-    // }
     drivetrain.registerTelemetry(logger::telemeterize);
 
     SequentialCommandGroup home = new SequentialCommandGroup(
@@ -132,23 +113,11 @@ public class RobotContainer {
         .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
     );
 
-    // driverController.y().onTrue(new InstantCommand(() -> pivot.up(), pivot));
-    // driverController.a().onTrue(new InstantCommand(() -> pivot.down(), pivot));
-
     driverController.rightTrigger().onTrue(new InstantCommand(() -> firingHead.shooterSetSpeed(masterController.getFiringSpeed()), firingHead)
     .andThen(new WaitCommand(.2))
     .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead))
     .andThen(new WaitCommand(3))
     .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));
-    //.andThen(new InstantCommand(() -> pivot.GoToStarting(), pivot)));      
-
-    // driverController.rightBumper().onTrue(new RunCommand(() -> masterController.runConveyors(), masterController)
-    // .until(() -> (firingHead.CenterSensorTriggered() && pivot.InStartingPosition())
-    //     || (intake.EitherSensorTriggered() && !pivot.InStartingPosition())
-    //     || operatorController.leftTrigger().getAsBoolean()
-    //     || operatorController.start().getAsBoolean()
-    //     || driverController.start().getAsBoolean())
-    // .andThen(new InstantCommand(() -> masterController.stopConveyors(), masterController)));  
 
     driverController.start().onTrue(home);
 
@@ -175,17 +144,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return trajChooser.getSelected();
-    // return new WeekZeroAuto(pivot, intake, firingHead, masterController, drivetrain, drive);
-    //return new MoveOnly(drivetrain, drive);
-    // return Commands.sequence(
-    //   new InstantCommand(()->drivetrain.seedFieldRelative(new Pose2d(1, 1, new Rotation2d(0))))
-      // ,
-      // drivetrain.applyRequest(() -> drive.withVelocityX(MaxSpeed) // Drive forward with
-      //       // negative Y (forward)
-      //       .withVelocityY(0) // Drive left with negative X (left)
-      //       .withRotationalRate(0) // Drive counterclockwise with negative X (left)
-      //   )
-        // );
   }
 
   public void seedFieldRelative(){

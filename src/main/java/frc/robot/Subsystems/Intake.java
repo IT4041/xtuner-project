@@ -16,8 +16,8 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
 
   private CANSparkMax intake;
-  private CANSparkMax conveyrUp;
-  private CANSparkMax conveyrLow;
+  private CANSparkMax conveyrUpFollower;
+  private CANSparkMax conveyrLowLeader;
 
   private double[] topAccumulator = new double[20];
   private double[] sideAccumulator = new double[20];
@@ -30,26 +30,30 @@ public class Intake extends SubsystemBase {
   public Intake() {
 
     // intake
-    intake = new CANSparkMax(Constants.IntakeConstants.LowerIntakeSparkmaxDeviceID, MotorType.kBrushless);
+    intake = new CANSparkMax(Constants.IntakeConstants.IntakeSparkmaxDeviceID, MotorType.kBrushless);
     intake.restoreFactoryDefaults();
     intake.setIdleMode(IdleMode.kBrake);
     intake.setSmartCurrentLimit(80);
     intake.setClosedLoopRampRate(1);
 
-    // upper conveyor
-    conveyrUp = new CANSparkMax(Constants.IntakeConstants.UpperConvyerSparkmaxDeviceID, MotorType.kBrushless);
-    conveyrUp.restoreFactoryDefaults();
-    conveyrUp.setIdleMode(IdleMode.kBrake);
-    conveyrUp.setSmartCurrentLimit(80);
-    conveyrUp.setClosedLoopRampRate(1);
-    conveyrUp.setInverted(true);
-
     // lower conveyor
-    conveyrLow = new CANSparkMax(Constants.IntakeConstants.LowerConvyerSparkmaxDeviceID, MotorType.kBrushless);
-    conveyrLow.restoreFactoryDefaults();
-    conveyrLow.setIdleMode(IdleMode.kBrake);
-    conveyrLow.setSmartCurrentLimit(80);
-    conveyrLow.setClosedLoopRampRate(1);
+    conveyrLowLeader = new CANSparkMax(Constants.IntakeConstants.LowerConvyerSparkmaxDeviceID, MotorType.kBrushless);
+    conveyrLowLeader.restoreFactoryDefaults();
+    conveyrLowLeader.setIdleMode(IdleMode.kBrake);
+    conveyrLowLeader.setSmartCurrentLimit(80);
+    conveyrLowLeader.enableVoltageCompensation(12);
+
+    // upper conveyor
+    conveyrUpFollower = new CANSparkMax(Constants.IntakeConstants.UpperConvyerSparkmaxDeviceID, MotorType.kBrushless);
+    conveyrUpFollower.restoreFactoryDefaults();
+    conveyrUpFollower.setIdleMode(IdleMode.kBrake);
+    conveyrUpFollower.setSmartCurrentLimit(80);
+    conveyrUpFollower.enableVoltageCompensation(12);
+
+    conveyrUpFollower.follow(conveyrLowLeader,true);
+
+    conveyrLowLeader.burnFlash();
+    conveyrUpFollower.burnFlash();
 
     sideSensor.setRangingMode(RangingMode.Short, 1);
     topSensor.setRangingMode(RangingMode.Short, 1);
@@ -129,15 +133,13 @@ public class Intake extends SubsystemBase {
   }
 
   public void on() {
-    conveyrLow.set(Constants.IntakeConstants.ConveyrMotorSpeed);
-    conveyrUp.set(-Constants.IntakeConstants.ConveyrMotorSpeed);
+    conveyrLowLeader.set(Constants.IntakeConstants.ConveyrMotorSpeed);
     intake.set(Constants.IntakeConstants.IntakeMotorSpeed);
   }
 
   public void off() {
     intake.stopMotor();
-    conveyrLow.stopMotor();
-    conveyrUp.stopMotor();
+    conveyrLowLeader.stopMotor();
   }
 
   public void setIntakeSpeed(double in_speed){
@@ -145,7 +147,6 @@ public class Intake extends SubsystemBase {
   }
 
   public void setConveyorSpeed(double con_speed){
-    conveyrUp.set(con_speed);
-    conveyrLow.set(con_speed);
+    conveyrLowLeader.set(con_speed);
   }
 }
