@@ -6,6 +6,7 @@ package frc.robot.Subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.playingwithfusion.TimeOfFlight;
@@ -29,6 +30,7 @@ public class FiringHead extends SubsystemBase {
   private double[] sideAccumulator = new double[20];
   private int centerAccumulatorIndex = 0;
   private int sideAccumulatorIndex = 0;
+
 
   /** Creates a new FiringHead. */
   public FiringHead() {
@@ -91,6 +93,7 @@ public class FiringHead extends SubsystemBase {
     SmartDashboard.putBoolean("conveyr on", transportMotor.get() > 0);
     SmartDashboard.putBoolean("shooter head is on", fireMotor.get() > 0);
 
+    SmartDashboard.putNumber("Shooter Speed", m_Encoder.getVelocity());
   }
 
   private double averageCenterRange() {
