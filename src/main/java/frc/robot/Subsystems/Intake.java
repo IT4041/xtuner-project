@@ -19,35 +19,34 @@ public class Intake extends SubsystemBase {
   private CANSparkMax conveyrUpFollower;
   private CANSparkMax conveyrLowLeader;
 
-  private double[] topAccumulator = new double[20];
   private double[] sideAccumulator = new double[20];
-  private int topAccumulatorIndex = 0;
   private int sideAccumulatorIndex = 0;
 
   private final TimeOfFlight sideSensor = new TimeOfFlight(Constants.IntakeConstants.TimeOfFlightSideSensorID);
-  private final TimeOfFlight topSensor = new TimeOfFlight(Constants.IntakeConstants.TimeOfFlightTopSensorID);
 
   public Intake() {
 
     // intake
-    intake = new CANSparkMax(Constants.IntakeConstants.IntakeSparkmaxDeviceID, MotorType.kBrushless);
+    intake = new CANSparkMax(Constants.IntakeConstants.IntakeSparkmaxDeviceID, MotorType.kBrushless);// id:11
     intake.restoreFactoryDefaults();
     intake.setIdleMode(IdleMode.kBrake);
     intake.setSmartCurrentLimit(80);
     intake.setClosedLoopRampRate(1);
 
-    // lower conveyor
-    conveyrLowLeader = new CANSparkMax(Constants.IntakeConstants.LowerConvyerSparkmaxDeviceID, MotorType.kBrushless);
-    conveyrLowLeader.restoreFactoryDefaults();
-    conveyrLowLeader.setIdleMode(IdleMode.kBrake);
-    conveyrLowLeader.setSmartCurrentLimit(80);
-    conveyrLowLeader.enableVoltageCompensation(12);
+    // lower conveyor and upper conveyor
+    conveyrLowLeader = new CANSparkMax(Constants.IntakeConstants.LowerConvyerSparkmaxDeviceID, MotorType.kBrushless);//id:2
+    conveyrUpFollower = new CANSparkMax(Constants.IntakeConstants.UpperConvyerSparkmaxDeviceID, MotorType.kBrushless);//id:1
 
-    // upper conveyor
-    conveyrUpFollower = new CANSparkMax(Constants.IntakeConstants.UpperConvyerSparkmaxDeviceID, MotorType.kBrushless);
+    conveyrLowLeader.restoreFactoryDefaults();
     conveyrUpFollower.restoreFactoryDefaults();
+
+    conveyrLowLeader.setIdleMode(IdleMode.kBrake);
     conveyrUpFollower.setIdleMode(IdleMode.kBrake);
+
+    conveyrLowLeader.setSmartCurrentLimit(80);
     conveyrUpFollower.setSmartCurrentLimit(80);
+
+    conveyrLowLeader.enableVoltageCompensation(12);
     conveyrUpFollower.enableVoltageCompensation(12);
 
     conveyrUpFollower.follow(conveyrLowLeader,true);
@@ -56,18 +55,10 @@ public class Intake extends SubsystemBase {
     conveyrUpFollower.burnFlash();
 
     sideSensor.setRangingMode(RangingMode.Short, 1);
-    topSensor.setRangingMode(RangingMode.Short, 1);
   }
 
   @Override
   public void periodic() {
-
-    SmartDashboard.putNumber("IN Top threshold", Constants.IntakeConstants.TopTreshholdIntake);
-    SmartDashboard.putBoolean("IN Top triggered?", this.TopTriggered());
-    SmartDashboard.putBoolean("IN Top Avg triggered?", this.TopAvgSensorTriggered());
-    SmartDashboard.putNumber("IN Top Accumulator avg", this.averageTopRange());
-    SmartDashboard.putNumber("IN Top distance", topSensor.getRange());
-    SmartDashboard.putNumber("IN Top sigma", topSensor.getRangeSigma());
 
     SmartDashboard.putNumber("IN Side threshold", Constants.IntakeConstants.SideTreshholdIntake);
     SmartDashboard.putBoolean("IN Side triggered?", this.SideTriggered());
@@ -82,18 +73,6 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putBoolean("intake head is on", intake.get() > 0);
   }
 
-  private double averageTopRange() {
-
-    topAccumulatorIndex++;
-    topAccumulatorIndex = topAccumulatorIndex > 19 ? 0 : topAccumulatorIndex;
-    topAccumulator[topAccumulatorIndex] = topSensor.getRange();
-
-    double topAvg = 0;
-    for (int i = 0; i < 20; i++) {
-      topAvg += topAccumulator[i];
-    }
-    return (topAvg / 20);
-  }
 
   private double averageSideRange() {
 
@@ -108,9 +87,6 @@ public class Intake extends SubsystemBase {
     return (sideAvg / 20);
   }
 
-  public boolean TopAvgSensorTriggered() {
-    return this.averageTopRange() <= Constants.IntakeConstants.TopTreshholdIntake;
-  }
 
   public boolean SideAvgSensorTriggered() {
     return this.averageSideRange() <= Constants.IntakeConstants.SideTreshholdIntake;
@@ -120,26 +96,12 @@ public class Intake extends SubsystemBase {
     return sideSensor.getRange() <= Constants.IntakeConstants.SideTreshholdIntake;
   }
 
-  public boolean TopTriggered() {
-    return topSensor.getRange() <= Constants.IntakeConstants.TopTreshholdIntake;
-  }
-
   public boolean EitherSensorTriggered() {
-    return this.SideTriggered(); //|| this.TopTriggered();
+    return this.SideTriggered();
   }
 
   public boolean EitherAvgSensorTriggered() {
-    return this.SideAvgSensorTriggered() || this.TopAvgSensorTriggered();
-  }
-
-  public void on() {
-    conveyrLowLeader.set(Constants.IntakeConstants.ConveyrMotorSpeed);
-    intake.set(Constants.IntakeConstants.IntakeMotorSpeed);
-  }
-
-  public void off() {
-    intake.stopMotor();
-    conveyrLowLeader.stopMotor();
+    return this.SideAvgSensorTriggered();
   }
 
   public void setIntakeSpeed(double in_speed){

@@ -61,30 +61,6 @@ public class MasterController extends SubsystemBase {
     SmartDashboard.putBoolean("MC any triggered?", this.anyAvgSensorTriggered());
   }
 
-  public void intake_on() {
-    m_intake.on();
-  }
-
-  public void intake_off() {
-    m_intake.off();
-  }
-
-  public void firingHead_MasterStop() {
-    m_firingHead.MasterStop();
-  }
-
-  public void pivot_shooting() {
-    m_pivot.GoToShootingShortRange();
-  }
-
-  public void pivot_starting() {
-    m_pivot.GoToStarting();
-  }
-
-  public void pivot_dump() {
-    m_pivot.GoToDump();
-  }
-
   public void runConveyors() {
     m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.TransportMotorSpeed);
     m_intake.setConveyorSpeed(Constants.IntakeConstants.ConveyrMotorSpeed);

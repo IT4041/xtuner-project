@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -73,7 +74,6 @@ public class Constants {
         public static int IntakeSparkmaxDeviceID = 11;
         public static int UpperConvyerSparkmaxDeviceID = 1;
         public static int LowerConvyerSparkmaxDeviceID = 2;
-        public static int UpperIntakeSparkmaxDeviceID = 33;
 
         public static int TimeOfFlightSideSensorID = 88;
         public static int TimeOfFlightTopSensorID = 87;
