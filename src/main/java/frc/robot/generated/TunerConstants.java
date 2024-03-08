@@ -44,7 +44,7 @@ public class TunerConstants {
 
         // Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
         // This may need to be tuned to your individual robot
-        private static final double kCoupleRatio = 3.125;
+        private static final double kCoupleRatio = 3.5714285714285716;;
 
         // MK4i drive gear ratios
         // L1 L2(using) L3
@@ -54,17 +54,17 @@ public class TunerConstants {
         // 3 15 45 15 45 15 45
         // 8.14:1 6.75:1 6.12:1
         private static final double Stage1Ratio = 50.0 / 14.0;
-        private static final double Stage2Ratio = 17.0 / 27.0;
+        private static final double Stage2Ratio = 16.0 / 28.0;
         private static final double Stage3Ratio = 45.0 / 15.0;
-        public static final double driveGearRatio = Stage1Ratio * Stage2Ratio * Stage3Ratio; // 6.75:1
+        public static final double driveGearRatio = Stage1Ratio * Stage2Ratio * Stage3Ratio; // 6.12:1
 
         // The steering gear ratio of the MK4i is 150/7:1
-        public static final double angleGearRatio = 21.43;
+        public static final double angleGearRatio = 21.428571428571427;;
 
         private static final double kDriveGearRatio = driveGearRatio;// 5.902777777777778;
         private static final double kSteerGearRatio = angleGearRatio;// 21.428571428571427;
 
-        private static final double kWheelRadiusInches = 1.97;
+        private static final double kWheelRadiusInches = 2;
 
         private static final boolean kSteerMotorReversed = true;
         private static final boolean kInvertLeftSide = false;
@@ -103,10 +103,10 @@ public class TunerConstants {
                         .withSteerMotorInverted(kSteerMotorReversed);
 
         // Front Left
-        private static final int kFrontLeftDriveMotorId = 20;
+        private static final int kFrontLeftDriveMotorId = 24;
         private static final int kFrontLeftSteerMotorId = 22;
         private static final int kFrontLeftEncoderId = 53;
-        private static final double kFrontLeftEncoderOffset = 0.32763671875;
+        private static final double kFrontLeftEncoderOffset = 0.32421875;
 
         private static final double kFrontLeftXPosInches = 11.125;
         private static final double kFrontLeftYPosInches = 13.375;
@@ -115,7 +115,7 @@ public class TunerConstants {
         private static final int kFrontRightDriveMotorId = 23;
         private static final int kFrontRightSteerMotorId = 41;
         private static final int kFrontRightEncoderId = 52;
-        private static final double kFrontRightEncoderOffset = 0.41259765625;
+        private static final double kFrontRightEncoderOffset = 0.41064453125;
 
         private static final double kFrontRightXPosInches = 11.125;
         private static final double kFrontRightYPosInches = -13.375;
@@ -124,7 +124,7 @@ public class TunerConstants {
         private static final int kBackLeftDriveMotorId = 43;
         private static final int kBackLeftSteerMotorId = 44;
         private static final int kBackLeftEncoderId = 54;
-        private static final double kBackLeftEncoderOffset = -0.437255859375;
+        private static final double kBackLeftEncoderOffset = -0.44140625;
 
         private static final double kBackLeftXPosInches = -11.125;
         private static final double kBackLeftYPosInches = 13.375;
@@ -133,7 +133,7 @@ public class TunerConstants {
         private static final int kBackRightDriveMotorId = 45;
         private static final int kBackRightSteerMotorId = 40;
         private static final int kBackRightEncoderId = 50;
-        private static final double kBackRightEncoderOffset = 0.113037109375;
+        private static final double kBackRightEncoderOffset = 0.1064453125;
 
         private static final double kBackRightXPosInches = -11.125;
         private static final double kBackRightYPosInches = -13.375;

@@ -92,7 +92,7 @@ public class Constants {
         public static final int Extended = 582;
         public static final double up_speed = 1.0;
         public static final double down_speed = -1.0;
-        public static final int limitSwitchPort = 5;
+        public static final int limitSwitchPort = 8;
         
     }
 
