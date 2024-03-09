@@ -30,14 +30,14 @@ public class Intake extends SubsystemBase {
     intake = new CANSparkMax(Constants.IntakeConstants.IntakeSparkmaxDeviceID, MotorType.kBrushless);// id:11
     intake.restoreFactoryDefaults();
     intake.setIdleMode(IdleMode.kBrake);
-    intake.setSmartCurrentLimit(50);
+    intake.setSmartCurrentLimit(80);
     intake.setClosedLoopRampRate(1);
     intake.enableVoltageCompensation(12);
     intake.burnFlash();
 
     // lower conveyor and upper conveyor
     conveyrLowLeader = new CANSparkMax(Constants.IntakeConstants.LowerConvyerSparkmaxDeviceID, MotorType.kBrushless);//id:2
-    conveyrUpFollower = new CANSparkMax(Constants.IntakeConstants.UpperConvyerSparkmaxDeviceID, MotorType.kBrushless);//id:1
+    conveyrUpFollower = new CANSparkMax(Constants.IntakeConstants.UpperConvyerSparkmaxDeviceID, MotorType.kBrushless);//id:18
 
     conveyrLowLeader.restoreFactoryDefaults();
     conveyrUpFollower.restoreFactoryDefaults();

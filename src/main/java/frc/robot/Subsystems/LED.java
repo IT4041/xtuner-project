@@ -48,7 +48,7 @@ public class LED extends SubsystemBase {
 	private IntensityPattern m_redIntensityPattern = new IntensityPattern(Color.kRed, intensityDegrees);
 	private IntensityPattern m_greenIntensityPattern = new IntensityPattern(Color.kGreen, intensityDegrees);
 	private TrobotAddressableLEDPattern m_rainbowPattern = new RainbowPattern();
-	private TrobotAddressableLEDPattern m_scannerPattern = new ScannerPattern(Color.kChartreuse,Color.kDeepPink,2);
+	private TrobotAddressableLEDPattern m_scannerPattern = new ScannerPattern(Color.kChartreuse,Color.kDeepPink,8);
 	private TrobotAddressableLEDPattern m_greenPattern = new SolidColorPattern(Color.kGreen);
 	private TrobotAddressableLEDPattern m_yellowPattern = new SolidColorPattern(Color.kLightYellow);
 	private TrobotAddressableLEDPattern m_purplePattern = new SolidColorPattern(Color.kPurple);

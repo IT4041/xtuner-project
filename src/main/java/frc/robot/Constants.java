@@ -27,7 +27,7 @@ public class Constants {
             
             public static final double ZeroOffset = 124.4;
             
-            public static final double ShootingPointMidRange = 41.5; //auto shooting pos 2 39.5
+            public static final double ShootingPointMidRange = 45.5; //auto shooting pos 2 39.5
             public static final double DumpPoint = 36;
             public static final double ShootingPointShortRange = 30; //auto shooting pos 1
             public static final double StartingPoint = 21; //up close shooting
@@ -49,7 +49,7 @@ public class Constants {
 
         public static double NearFiringSpeed = 0.41;
         public static double DumpSpeed = 0.3;
-        public static double FarFiringSpeed = 0.45;
+        public static double FarFiringSpeed = 0.55;
 
         public static double TransportMotorSpeed = 0.5;
         public static double ShootTransportMotorSpeed = 0.85;
@@ -81,7 +81,7 @@ public class Constants {
         public static double SideTreshholdIntake = 75;
         public static double TopTreshholdIntake = 300;
 
-        public static double IntakeMotorSpeed = 0.7; // Number Reduced For Testing  Original 1
+        public static double IntakeMotorSpeed = 1.0; // Number Reduced For Testing  Original 1
         public static double ConveyrMotorSpeed = 0.4; // 0.8
 
     }
@@ -89,7 +89,7 @@ public class Constants {
     public static final class LiftConstants{
         public static final int LiftSparkmaxDeviceID = 32;
         public static final int Home = 0;
-        public static final int Extended = 582;
+        public static final int Extended = 146;
         public static final double up_speed = 1.0;
         public static final double down_speed = -1.0;
         public static final int limitSwitchPort = 8;
