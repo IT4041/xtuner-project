@@ -53,7 +53,7 @@ public class FiringHead extends SubsystemBase {
     followMotor.setClosedLoopRampRate(1);
 
     transportMotor.setIdleMode(IdleMode.kBrake);
-    transportMotor.setSmartCurrentLimit(80);
+    transportMotor.setSmartCurrentLimit(60);
     transportMotor.setClosedLoopRampRate(1);
 
     followMotor.follow(fireMotor, true);

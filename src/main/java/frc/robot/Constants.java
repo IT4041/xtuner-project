@@ -72,7 +72,7 @@ public class Constants {
     public static final class IntakeConstants {
 
         public static int IntakeSparkmaxDeviceID = 11;
-        public static int UpperConvyerSparkmaxDeviceID = 1;
+        public static int UpperConvyerSparkmaxDeviceID = 18;
         public static int LowerConvyerSparkmaxDeviceID = 2;
 
         public static int TimeOfFlightSideSensorID = 88;
