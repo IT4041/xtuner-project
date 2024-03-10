@@ -122,6 +122,21 @@ public class Pivot extends SubsystemBase {
     position_index = 3;
   }
 
+  public void GoToLeftNoteShootingPosition(){
+    current_position = Constants.PivotConstants.PivotPostions.ShootingPointMidRange;
+    this.setPosition(current_position);
+  }
+
+  public void GoToCenterNoteShootingPosition(){
+    current_position = Constants.PivotConstants.PivotPostions.DumpPoint;
+    this.setPosition(current_position);
+  }
+
+  public void GoToRightNoteShootingPosition(){
+    current_position = (Constants.PivotConstants.PivotPostions.DumpPoint + 4.0);
+    this.setPosition(current_position);
+  }
+
   public boolean InStartingPosition() {
     return withinRange(2.25, m_Encoder.getPosition(), Constants.PivotConstants.PivotPostions.StartingPoint);
   }

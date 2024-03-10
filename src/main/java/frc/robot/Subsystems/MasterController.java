@@ -4,10 +4,13 @@
 
 package frc.robot.Subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class MasterController extends SubsystemBase {
 
@@ -37,9 +40,10 @@ public class MasterController extends SubsystemBase {
       m_led.noNote();
     }
 
+    
     //if we have a note in firing head move to short shooting position
     // and turn on shooting wheels
-    if(m_firingHead.EitherSensorTriggered()){
+    if(m_firingHead.EitherSensorTriggered() && !DriverStation.isAutonomousEnabled()){
       if(m_pivot.InStartingPosition()){
         m_pivot.GoToShootingShortRange();
       }

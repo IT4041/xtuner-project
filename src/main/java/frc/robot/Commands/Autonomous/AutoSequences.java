@@ -35,7 +35,7 @@ public class AutoSequences {
                 new InstantCommand(() -> m_pivot.GoToShootingShortRange(), m_pivot),
                 new WaitCommand(1),
                 new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
-                new WaitCommand(1.5));
+                new WaitCommand(.35));
 
         return shootingCommand;
     }
@@ -45,9 +45,45 @@ public class AutoSequences {
         SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
                 new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead),
                 new InstantCommand(() -> m_pivot.GoToShootingMidRange(), m_pivot),
-                new WaitCommand(2.5),
+                new WaitCommand(1),
                 new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
-                new WaitCommand(1.5));
+                new WaitCommand(.35));
+
+        return shootingCommand;
+    }
+
+    public SequentialCommandGroup ShootingSequence_LeftNote() {
+
+        SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
+                new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead),
+                new InstantCommand(() -> m_pivot.GoToLeftNoteShootingPosition(), m_pivot),
+                new WaitCommand(1),
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
+                new WaitCommand(.35));
+
+        return shootingCommand;
+    }
+
+    public SequentialCommandGroup ShootingSequence_CenterNote() {
+
+        SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
+                new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead),
+                new InstantCommand(() -> m_pivot.GoToCenterNoteShootingPosition(), m_pivot),
+                new WaitCommand(1),
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
+                new WaitCommand(.35));
+
+        return shootingCommand;
+    }
+
+    public SequentialCommandGroup ShootingSequence_RightNote() {
+
+        SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
+                new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead),
+                new InstantCommand(() -> m_pivot.GoToRightNoteShootingPosition(), m_pivot),
+                new WaitCommand(1),
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
+                new WaitCommand(.35));
 
         return shootingCommand;
     }
@@ -57,8 +93,9 @@ public class AutoSequences {
         SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
                 new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.DumpSpeed), m_firingHead),
                 new InstantCommand(() -> m_pivot.GoToDump(), m_pivot),
-                new WaitCommand(0.55),
-                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead));
+                new WaitCommand(1),
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
+                new WaitCommand(.35));
 
         return shootingCommand;
     }
@@ -89,7 +126,7 @@ public class AutoSequences {
     public SequentialCommandGroup ConveyorSequenceUntilSensor() {
 
         SequentialCommandGroup command = new RunCommand(() -> m_masterController.runConveyors(), m_masterController)
-                .until(() -> m_firingHead.EitherSensorTriggered())
+                .until(() -> m_firingHead.CenterSensorTriggered())
                 .andThen(new InstantCommand(() -> m_masterController.stopConveyors(), m_masterController));
 
         return command;
