@@ -71,7 +71,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("GoToDump", new InstantCommand(() -> pivot.GoToDump(), pivot));
     NamedCommands.registerCommand("GoToShootingMidRange", new InstantCommand(() -> pivot.GoToShootingMidRange(), pivot));
     NamedCommands.registerCommand("GoToShootingShortRange", new InstantCommand(() -> pivot.GoToShootingShortRange(), pivot));
+
     NamedCommands.registerCommand("GoToLeftNoteShootingPosition", new InstantCommand(() -> pivot.GoToLeftNoteShootingPosition(), pivot));
+    NamedCommands.registerCommand("GoToRightNoteShootingPosition", new InstantCommand(() -> pivot.GoToRightNoteShootingPosition(), pivot));
+    NamedCommands.registerCommand("GoToCenterNoteShootingPosition", new InstantCommand(() -> pivot.GoToCenterNoteShootingPosition(), pivot));
+
     NamedCommands.registerCommand("GoToStarting", new InstantCommand(() -> pivot.GoToStarting(), pivot));
     NamedCommands.registerCommand("starting_sequence", autoSeq.StartingSequence());
     NamedCommands.registerCommand("run_conveyors", autoSeq.ConveyorSequence());
