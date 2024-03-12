@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "left note path"
+                  "pathName": "1 to left note"
                 }
               },
               {
@@ -43,7 +43,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "left to shoot3"
+                  "pathName": "2 left to shootA"
                 }
               },
               {
@@ -87,7 +87,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "shoot3 to center"
+                  "pathName": "3 shootA to center"
                 }
               },
               {
@@ -106,7 +106,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "center to shoot"
+                  "pathName": "4 center to shootB"
                 }
               },
               {
@@ -150,7 +150,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "shoot to right"
+                  "pathName": "5 shootB to right"
                 }
               },
               {
@@ -169,7 +169,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right to shoot2"
+                  "pathName": "6 right to shootC"
                 }
               },
               {
@@ -210,6 +210,12 @@
           "type": "named",
           "data": {
             "name": "GoToStarting"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "7 shootC to escape"
           }
         }
       ]

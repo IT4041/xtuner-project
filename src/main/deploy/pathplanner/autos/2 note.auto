@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.32,
-      "y": 5.54
+      "x": 0.68,
+      "y": 4.4
     },
-    "rotation": 0.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "left note path"
+                  "pathName": "9.1 right to far noteA"
                 }
               },
               {
@@ -37,9 +37,41 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "9.2 noteA to shoot"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "run_conveyors_until"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GoToShootingMidRange"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "fire_LeftNote"
+            "name": "fire_FarNote"
           }
         },
         {
@@ -55,26 +87,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "left to center"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "run_conveyors_until"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "center to shoot"
+                  "pathName": "9.3 Shoot to noteB"
                 }
               },
               {
@@ -87,50 +100,32 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "fire_CenterNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "GoToStarting"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "shoot to right"
+                  "pathName": "9.4 noteB to shoot"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "run_conveyors_until"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "right to shoot2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "run_conveyors_until"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "run_conveyors"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GoToShootingMidRange"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -139,13 +134,7 @@
         {
           "type": "named",
           "data": {
-            "name": "fire_RightNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stop_conveyors"
+            "name": "fire_FarNote"
           }
         },
         {

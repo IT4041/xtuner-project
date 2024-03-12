@@ -80,6 +80,18 @@ public class AutoSequences {
 
         SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
                 new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead),
+                new InstantCommand(() -> m_pivot.GoToShootingMidRange(), m_pivot),
+                new WaitCommand(.5),
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
+                new WaitCommand(.35));
+
+        return shootingCommand;
+    }
+
+    public SequentialCommandGroup ShootingSequence_FarNote() {
+
+        SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
+                new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead),
                 new InstantCommand(() -> m_pivot.GoToRightNoteShootingPosition(), m_pivot),
                 new WaitCommand(.5),
                 new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),

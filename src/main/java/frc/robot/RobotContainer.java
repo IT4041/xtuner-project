@@ -87,7 +87,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("fire_LeftNote", autoSeq.ShootingSequence_LeftNote());
     NamedCommands.registerCommand("fire_CenterNote", autoSeq.ShootingSequence_CenterNote());
     NamedCommands.registerCommand("fire_RightNote", autoSeq.ShootingSequence_RightNote());
-
+    NamedCommands.registerCommand("fire_FarNote", autoSeq.ShootingSequence_FarNote());
+    
     trajChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", trajChooser);
     configureBindings();
