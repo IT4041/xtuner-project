@@ -20,6 +20,7 @@ public class MasterController extends SubsystemBase {
   private final LED m_led;
   private final CommandXboxController m_driverController;
   private final CommandXboxController m_operatorController;
+  private boolean override = false;
 
   public MasterController(Pivot in_pivot, Intake in_intake, FiringHead in_firingHead, LED in_led, CommandXboxController in_driverController, CommandXboxController in_operatorController) {
     m_intake = in_intake;
@@ -78,24 +79,39 @@ public class MasterController extends SubsystemBase {
   }
 
   public double getFiringSpeed() {
+
     double retSpeed;
-    switch (m_pivot.ReturnPositionIndex()) {
-      case 3:
-        retSpeed = Constants.FiringHeadConstants.FarFiringSpeed;
-        break;
-      case 2:
-        retSpeed = Constants.FiringHeadConstants.DumpSpeed;
-        break;
-      case 1:
-        retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
-        break;
-      case 0:
-        retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
-        break;
-      default:retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
-        break;
+    if(override)
+    {
+       retSpeed = Constants.FiringHeadConstants.MaxSpeed;
+    }
+    else{
+      switch (m_pivot.ReturnPositionIndex()) {
+        case 3:
+          retSpeed = Constants.FiringHeadConstants.FarFiringSpeed;
+          break;
+        case 2:
+          retSpeed = Constants.FiringHeadConstants.DumpSpeed;
+          break;
+        case 1:
+          retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
+          break;
+        case 0:
+          retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
+          break;
+        default:retSpeed = Constants.FiringHeadConstants.NearFiringSpeed;
+          break;
+      }
     }
     return retSpeed;
+  }
+
+  public void OverrideOn(){
+     override = true;
+  }
+
+    public void OverrideOff(){
+     override = false;
   }
 
   private boolean anySensorTriggered() {

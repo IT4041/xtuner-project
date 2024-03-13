@@ -50,23 +50,13 @@ public class Constants {
         public static double NearFiringSpeed = 0.41;
         public static double DumpSpeed = 0.3;
         public static double FarFiringSpeed = 0.55;
+        public static double MaxSpeed = 0.95;
 
         public static double TransportMotorSpeed = 0.3;
         public static double ShootTransportMotorSpeed = 0.85;
 
         public static double SourceSpeed = -0.3;
         public static double SourceTransportMotorSpeed = -0.4;
-
-        public static final class FiringHeadPIDConstants {
-            
-            public static final double kP = 0;
-            public static final double kI = 0;
-            public static final double kD = 0;
-            public static final double kIz = 0;
-            public static final double kFF = 0;
-            public static final double kMaxOutput = 0;
-            public static final double kMinOutput = 0;
-        }
     }
 
     public static final class IntakeConstants {

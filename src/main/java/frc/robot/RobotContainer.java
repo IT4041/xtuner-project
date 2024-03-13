@@ -128,6 +128,9 @@ public class RobotContainer {
     .andThen(new WaitCommand(3))
     .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));
 
+    driverController.leftBumper().whileTrue(new InstantCommand(() -> masterController.OverrideOn(), masterController));
+    driverController.leftBumper().onFalse(new InstantCommand(() -> masterController.OverrideOff(), masterController));
+
     driverController.start().onTrue(home);
 
     // ********************* operator control **************************/
