@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.68,
-      "y": 4.4
+      "x": 0.69,
+      "y": 6.67
     },
-    "rotation": -60.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -18,13 +18,13 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "9.1 right to far noteA"
+                  "pathName": "9.5 left to escape"
                 }
               },
               {
@@ -43,7 +43,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "9.2 noteA to shoot"
+                  "pathName": "2 left to shootA"
                 }
               },
               {
@@ -59,7 +59,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "GoToShootingMidRange"
+                        "name": "GoToLeftNoteShootingPosition"
                       }
                     }
                   ]
@@ -71,7 +71,7 @@
         {
           "type": "named",
           "data": {
-            "name": "fire_FarNote"
+            "name": "fire_LeftNote"
           }
         },
         {
@@ -81,13 +81,13 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "9.3 Shoot to noteB"
+                  "pathName": "9.6 shoot1 to far note"
                 }
               },
               {
@@ -106,7 +106,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "9.4 noteB to shoot"
+                  "pathName": "9.7 far note to shoot1"
                 }
               },
               {
@@ -116,13 +116,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "run_conveyors"
+                        "name": "run_conveyors_until"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "GoToShootingMidRange"
+                        "name": "GoToLeftNoteShootingPosition"
                       }
                     }
                   ]
@@ -134,7 +134,7 @@
         {
           "type": "named",
           "data": {
-            "name": "fire_FarNote"
+            "name": "fire_LeftNote"
           }
         },
         {

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.32,
-      "y": 5.54
+      "x": 0.68,
+      "y": 4.4
     },
-    "rotation": 0.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1 to left note"
+                  "pathName": "9.1 right to far noteA"
                 }
               },
               {
@@ -43,7 +43,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "2 left to shootA"
+                  "pathName": "9.2 noteA to shoot"
                 }
               },
               {
@@ -59,7 +59,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "GoToLeftNoteShootingPosition"
+                        "name": "GoToShootingMidRange"
                       }
                     }
                   ]
@@ -71,7 +71,7 @@
         {
           "type": "named",
           "data": {
-            "name": "fire_LeftNote"
+            "name": "fire_FarNote"
           }
         },
         {
@@ -87,13 +87,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3 shootA to center"
+                  "pathName": "9.3 Shoot to noteB"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "run_conveyors_until"
+                  "name": "run_conveyors"
                 }
               }
             ]
@@ -106,7 +106,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4 center to shootB"
+                  "pathName": "9.4 noteB to shoot"
                 }
               },
               {
@@ -116,13 +116,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "run_conveyors_until"
+                        "name": "run_conveyors"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "GoToCenterNoteShootingPosition"
+                        "name": "GoToShootingMidRange"
                       }
                     }
                   ]
@@ -134,88 +134,13 @@
         {
           "type": "named",
           "data": {
-            "name": "fire_CenterNote"
+            "name": "fire_FarNote"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "GoToStarting"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "5 shootB to right"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "run_conveyors_until"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "6 right to shootC"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "run_conveyors_until"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "GoToRightNoteShootingPosition"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "fire_RightNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stop_conveyors"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "GoToStarting"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "7 shootC to escape"
           }
         }
       ]
