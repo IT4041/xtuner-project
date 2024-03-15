@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3377023770325538,
+      "y": 5.559733925264952
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "starting_sequence"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GoToStarting"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stop_conveyors"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
