@@ -123,7 +123,7 @@ public class FiringHead extends SubsystemBase {
 
   public void Source() {
     transportMotor.set(Constants.FiringHeadConstants.SourceTransportMotorSpeed);
-    fireMotor.set(Constants.FiringHeadConstants.SourceSpeed);
+    this.shooterSetSpeed(Constants.FiringHeadConstants.SourceSpeed);
   }
 
   public boolean CenterAvgSensorTriggered() {

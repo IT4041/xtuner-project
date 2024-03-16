@@ -123,10 +123,10 @@ public class RobotContainer {
     );
 
     driverController.rightTrigger().onTrue(new InstantCommand(() -> firingHead.shooterSetSpeed(masterController.getFiringSpeed()), firingHead)
-    .andThen(new WaitCommand(.2))
-    .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead))
-    .andThen(new WaitCommand(3))
-    .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));
+      .andThen(new WaitCommand(.2))
+      .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead))
+      .andThen(new WaitCommand(3))
+      .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead)));
 
     driverController.leftBumper().whileTrue(new InstantCommand(() -> masterController.OverrideOn(), masterController));
     driverController.leftBumper().onFalse(new InstantCommand(() -> masterController.OverrideOff(), masterController));

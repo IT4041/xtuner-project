@@ -125,16 +125,19 @@ public class Pivot extends SubsystemBase {
   public void GoToLeftNoteShootingPosition(){
     current_position = (Constants.PivotConstants.PivotPostions.DumpPoint + 1.5);
     this.setPosition(current_position);
+    position_index = 2;
   }
 
   public void GoToCenterNoteShootingPosition(){
     current_position = (Constants.PivotConstants.PivotPostions.ShootingPointShortRange + 1.5);
     this.setPosition(current_position);
+    position_index = 1;
   }
 
   public void GoToRightNoteShootingPosition(){
     current_position = (Constants.PivotConstants.PivotPostions.DumpPoint + 1.5);
     this.setPosition(current_position);
+    position_index = 2;
   }
 
   public boolean InStartingPosition() {
