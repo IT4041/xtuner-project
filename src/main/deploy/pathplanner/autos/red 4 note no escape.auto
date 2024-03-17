@@ -1,0 +1,220 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.18,
+      "y": 5.56
+    },
+    "rotation": 179.51181419373106
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "starting_sequence"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "red 4 note leg 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "run_conveyors_until"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "red 4 note leg 2"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "run_conveyors_until"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GoToCenterNoteShootingPosition"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fire_CenterNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GoToStarting"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "red 4 note leg 3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "run_conveyors_until"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "red 4 note leg 4"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "run_conveyors_until"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GoToCenterNoteShootingPosition"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fire_CenterNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GoToStarting"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "red 4 note leg 5"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "run_conveyors_until"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "red 4 note leg 6"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "run_conveyors_until"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GoToCenterNoteShootingPosition"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fire_CenterNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stop_conveyors"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GoToStarting"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
