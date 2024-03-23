@@ -48,7 +48,12 @@ public class MasterController extends SubsystemBase {
       if(m_pivot.InStartingPosition()){
         m_pivot.GoToShootingShortRange();
       }
-      m_firingHead.shooterSetSpeed(this.getFiringSpeed());
+
+      // wait for shooter wheels to stop spinning before switching direction
+      // to avoid wear on motors and gearboxes
+      if(m_firingHead.getShooterVelocity() > -0.05){
+        m_firingHead.shooterSetSpeed(this.getFiringSpeed());
+      }
     }
 
     //shuffle note that was stopped in intake up to shooterhead as soon as pivot is in starting position

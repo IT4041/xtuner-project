@@ -47,7 +47,7 @@ public class Pivot extends SubsystemBase {
     mainMotor.setIdleMode(IdleMode.kBrake);
     mainMotor.setSmartCurrentLimit(60);
     mainMotor.setClosedLoopRampRate(2);
-    mainMotor.setSoftLimit(SoftLimitDirection.kForward, (float) Constants.PivotConstants.PivotPostions.DumpPoint);
+    mainMotor.setSoftLimit(SoftLimitDirection.kForward, (float) Constants.PivotConstants.PivotPostions.ShootingPointMidRange);
     mainMotor.setSoftLimit(SoftLimitDirection.kReverse, (float) Constants.PivotConstants.PivotPostions.StartingPoint);
     mainMotor.enableSoftLimit(SoftLimitDirection.kForward, false);
     mainMotor.enableSoftLimit(SoftLimitDirection.kReverse, false);
@@ -76,6 +76,10 @@ public class Pivot extends SubsystemBase {
     SmartDashboard.putBoolean("Shoot Low", position_index == 1);
     SmartDashboard.putBoolean("Starting", position_index == 0);
     SmartDashboard.putBoolean("Pivot inStartingPosition", this.InStartingPosition());
+
+    if(this.InStartingPosition() && target_position == Constants.PivotConstants.PivotPostions.StartingPoint){
+      mainMotor.set(0);
+    }
   }
 
   private int readInitalPosition(){
@@ -141,7 +145,7 @@ public class Pivot extends SubsystemBase {
   }
 
   public boolean InStartingPosition() {
-    return withinRange(2.25, m_Encoder.getPosition(), Constants.PivotConstants.PivotPostions.StartingPoint);
+    return withinRange(2, m_Encoder.getPosition(), Constants.PivotConstants.PivotPostions.StartingPoint);
   }
 
   private boolean withinRange(double range, double value, double compareAgainst){

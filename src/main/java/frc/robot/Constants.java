@@ -17,7 +17,7 @@ public class Constants {
         public static int SparkmaxDeviceID = 8;
 
         public static final class PivotPIDConstants {
-            public static final double kP = 0.02;
+            public static final double kP = 0.0675;
             public static final double kI = 0.0;
             public static final double kD = 0.0;
             public static final double period = 0.001;
@@ -30,7 +30,7 @@ public class Constants {
             public static final double ShootingPointMidRange = 45.5; //auto shooting pos 2 39.5
             public static final double DumpPoint = 36;
             public static final double ShootingPointShortRange = 30; //auto shooting pos 1
-            public static final double StartingPoint = 21; //up close shooting
+            public static final double StartingPoint = 21.3; //up close shooting
             public static final double[] PivotPoses = {StartingPoint, ShootingPointShortRange, DumpPoint, ShootingPointMidRange};
         }
     }
@@ -47,9 +47,9 @@ public class Constants {
         public static int CenterSensorThreshold = 80;
         public static int SideSensorThreshold = 40;
 
-        public static double NearFiringSpeed = 0.415;
+        public static double NearFiringSpeed = 0.8;//0.415;
         public static double DumpSpeed = 0.3;
-        public static double FarFiringSpeed = 0.55;
+        public static double FarFiringSpeed = 0.8;//0.55;
         public static double MaxSpeed = 0.95;
 
         public static double TransportMotorSpeed = 0.3;

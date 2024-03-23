@@ -153,13 +153,22 @@ public class FiringHead extends SubsystemBase {
   public void MasterStop() {
     transportMotor.stopMotor();
     fireMotor.stopMotor();
+    fireMotor.setIdleMode(IdleMode.kBrake);
+    followMotor.setIdleMode(IdleMode.kBrake);
   }
 
   public void shooterSetSpeed(double speed) {
     fireMotor.set(speed);
+    fireMotor.setIdleMode(IdleMode.kCoast);
+    followMotor.setIdleMode(IdleMode.kCoast);
   }
 
   public void setTransportMotorSpeed(double speed) {
     transportMotor.set(speed);
   }
+
+  public double getShooterVelocity(){
+    return m_Encoder.getVelocity();
+  }
+
 }

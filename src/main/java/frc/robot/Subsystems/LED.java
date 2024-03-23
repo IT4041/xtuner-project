@@ -47,13 +47,14 @@ public class LED extends SubsystemBase {
 	private IntensityPattern m_blueIntensityPattern = new IntensityPattern(Color.kBlue, intensityDegrees);
 	private IntensityPattern m_redIntensityPattern = new IntensityPattern(Color.kRed, intensityDegrees);
 	private IntensityPattern m_greenIntensityPattern = new IntensityPattern(Color.kGreen, intensityDegrees);
+	private IntensityPattern m_offIntensityPattern = new IntensityPattern(Color.kBlack, 0);
 	private TrobotAddressableLEDPattern m_rainbowPattern = new RainbowPattern();
 	private TrobotAddressableLEDPattern m_scannerPattern = new ScannerPattern(Color.kChartreuse,Color.kDeepPink,8);
 	private TrobotAddressableLEDPattern m_greenPattern = new SolidColorPattern(Color.kGreen);
 	private TrobotAddressableLEDPattern m_yellowPattern = new SolidColorPattern(Color.kLightYellow);
 	private TrobotAddressableLEDPattern m_purplePattern = new SolidColorPattern(Color.kPurple);
 	
-	private TrobotAddressableLEDPattern m_disabledPattern = m_rainbowPattern;
+	private TrobotAddressableLEDPattern m_disabledPattern = m_offIntensityPattern;
 	
 	/** Creates a new StatusLED. */
 	public LED(RobotContainer robotContainer) {
