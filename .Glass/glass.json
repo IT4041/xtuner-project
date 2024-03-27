@@ -38,11 +38,10 @@
     },
     "windows": {
       "/Pose": {
-        "bottom": 544,
-        "builtin": "2024 Crescendo",
-        "height": 8.013679504394531,
-        "left": 46,
-        "right": 1088,
+        "bottom": 1476,
+        "height": 8.210550308227539,
+        "left": 150,
+        "right": 2961,
         "robotPose": {
           "arrowColor": [
             0.906862735748291,
@@ -58,8 +57,11 @@
           ],
           "style": "Box/Image"
         },
-        "top": 36,
-        "width": 16.541748046875
+        "top": 79,
+        "width": 16.541748046875,
+        "window": {
+          "visible": true
+        }
       },
       "/SmartDashboard/Auto Chooser": {
         "window": {
@@ -67,12 +69,11 @@
         }
       },
       "/SmartDashboard/Field": {
-        "bottom": 544,
-        "builtin": "2024 Crescendo",
-        "height": 8.013679504394531,
-        "left": 46,
-        "right": 1088,
-        "top": 36,
+        "bottom": 1476,
+        "height": 8.210550308227539,
+        "left": 150,
+        "right": 2961,
+        "top": 79,
         "width": 16.541748046875,
         "window": {
           "visible": true

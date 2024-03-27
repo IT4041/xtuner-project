@@ -138,7 +138,7 @@ public class AutoSequences {
     public SequentialCommandGroup ConveyorSequenceUntilSensor() {
 
         SequentialCommandGroup command = new RunCommand(() -> m_masterController.runConveyors(), m_masterController)
-                .until(() -> m_firingHead.CenterSensorTriggered()).withTimeout(3)
+                .until(() -> m_firingHead.CenterSensorTriggered()).withTimeout(1.5)
                 .andThen(new InstantCommand(() -> m_masterController.stopConveyors(), m_masterController));
 
         return command;
