@@ -119,4 +119,9 @@ public class MasterController extends SubsystemBase {
     private boolean anyAvgSensorTriggered() {
     return m_firingHead.EitherAvgSensorTriggered() || m_intake.EitherAvgSensorTriggered();
   }
+
+    public Object autoAlign() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'autoAlign'");
+    }
 }
