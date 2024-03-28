@@ -58,22 +58,33 @@
           "style": "Box/Image"
         },
         "top": 79,
-        "width": 16.541748046875,
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/Auto Chooser": {
-        "window": {
-          "visible": true
-        }
+        "width": 16.541748046875
       },
       "/SmartDashboard/Field": {
+        "Robot": {
+          "arrowColor": [
+            0.014345457777380943,
+            0.014705896377563477,
+            0.014345457777380943,
+            255.0
+          ],
+          "color": [
+            0.906862735748291,
+            0.4152531921863556,
+            0.07112648338079453,
+            255.0
+          ],
+          "length": 0.8399999737739563,
+          "selectable": false,
+          "style": "Box/Image",
+          "width": 0.949999988079071
+        },
         "bottom": 1476,
         "height": 8.210550308227539,
         "left": 150,
         "right": 2961,
         "top": 79,
+        "units": "meters",
         "width": 16.541748046875,
         "window": {
           "visible": true
@@ -90,11 +101,14 @@
     },
     "Server": {
       "open": true
-    },
-    "visible": true
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
-    "serverTeam": "4041"
+    "serverTeam": "4041",
+    "visible": false
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }

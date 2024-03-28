@@ -7,10 +7,7 @@ package frc.robot.Subsystems;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
 
 public class MasterController extends SubsystemBase {
 
@@ -18,17 +15,13 @@ public class MasterController extends SubsystemBase {
   private final Pivot m_pivot;
   private final FiringHead m_firingHead;
   private final LED m_led;
-  private final CommandXboxController m_driverController;
-  private final CommandXboxController m_operatorController;
   private boolean override = false;
 
-  public MasterController(Pivot in_pivot, Intake in_intake, FiringHead in_firingHead, LED in_led, CommandXboxController in_driverController, CommandXboxController in_operatorController) {
+  public MasterController(Pivot in_pivot, Intake in_intake, FiringHead in_firingHead, LED in_led) {
     m_intake = in_intake;
     m_pivot = in_pivot;
     m_firingHead = in_firingHead;
     m_led = in_led;
-    m_driverController = in_driverController;
-    m_operatorController = in_operatorController;
   }
 
   @Override

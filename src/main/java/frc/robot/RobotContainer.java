@@ -44,7 +44,7 @@ public class RobotContainer {
   private final FiringHead firingHead = new FiringHead();
   private final Lift lift = new Lift();
   private final LED led = new LED(this);
-  private final MasterController masterController = new MasterController(pivot, intake, firingHead, led, driverController, operatorController);
+  private final MasterController masterController = new MasterController(pivot, intake, firingHead, led );
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
