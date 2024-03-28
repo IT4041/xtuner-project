@@ -156,7 +156,7 @@ public class TunerConstants {
                         kInvertRightSide);
 
         public static final CommandSwerveDrivetrain DriveTrain = new CommandSwerveDrivetrain(DrivetrainConstants,250,
-                        VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),//odometery stdev
-                        VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(2.5)),// vision stdev
+                        VecBuilder.fill(0.01, 0.01, Units.degreesToRadians(1.0)),//odometery stdev
+                        VecBuilder.fill(0.01, 0.01, Units.degreesToRadians(1.0)),// vision stdev
                         FrontLeft,FrontRight, BackLeft, BackRight);
 }

@@ -128,7 +128,7 @@ public class RobotContainer {
     driverController.leftBumper().whileTrue(new InstantCommand(() -> masterController.OverrideOn(), masterController));
     driverController.leftBumper().onFalse(new InstantCommand(() -> masterController.OverrideOff(), masterController));
 
-    //driverController.rightBumper().whileTrue(new InstantCommand(() -> masterController.autoAlign(), masterController));
+    driverController.rightBumper().whileTrue(new InstantCommand(() -> this.getAutoAlignAndShoot(), drivetrain,firingHead));
 
     driverController.start().onTrue(home);
 
@@ -171,6 +171,20 @@ public boolean isRedAlliance() {
 
   public boolean isDisabled() {
     return DriverStation.isDisabled();
+  }
+
+  public Command getAutoAlignAndShoot(){
+
+    SequentialCommandGroup AAaS = new SequentialCommandGroup(
+      drivetrain.autoAlign(),
+      new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), firingHead)
+      .andThen(new WaitCommand(.1))
+      .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead))
+      .andThen(new WaitCommand(1))
+      .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
+    );
+
+    return AAaS;
   }
 
 }

@@ -3,6 +3,7 @@
   "robotLength": 0.84,
   "holonomicMode": true,
   "pathFolders": [
+    "auto align paths",
     "blue 4 note",
     "red 4 note"
   ],

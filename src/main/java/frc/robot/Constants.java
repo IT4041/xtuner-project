@@ -17,7 +17,7 @@ public class Constants {
         public static int SparkmaxDeviceID = 8;
 
         public static final class PivotPIDConstants {
-            public static final double kP = 0.0625;
+            public static final double kP = 0.0575;
             public static final double kI = 0.0;
             public static final double kD = 0.0;
             public static final double period = 0.001;
