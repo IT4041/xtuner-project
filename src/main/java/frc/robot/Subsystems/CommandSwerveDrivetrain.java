@@ -80,7 +80,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     public void periodic() {
         LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
         if (limelightMeasurement.tagCount >= 2) {
-            super.setVisionMeasurementStdDevs(VecBuilder.fill(0.01, 0.01, Units.degreesToRadians(1.0)));
+            super.setVisionMeasurementStdDevs(VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(2.5)));
             super.addVisionMeasurement(
                     limelightMeasurement.pose,
                     limelightMeasurement.timestampSeconds);
@@ -96,6 +96,9 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         SmartDashboard.putNumber("TX", LimelightHelpers.getTX("limelight"));
         SmartDashboard.putNumber("TY", LimelightHelpers.getTY("limelight"));
         SmartDashboard.putBoolean("Pose Rot", LimelightHelpers.getTV("limelight"));
+
+        SmartDashboard.putBoolean("is Red", this.isRed());
+        SmartDashboard.putNumber("poseY", this.getState().Pose.getY());
     }
 
     private void buildAutoBuilder() {
@@ -183,45 +186,85 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         return driveBaseRadius;
     }
 
-    public Command autoAlign() {
-
+    private boolean isRed(){
         var alliance = DriverStation.getAlliance();
         boolean isRed = false;
-        boolean sourceSide = false;
 
         if (alliance.isPresent()) {
             isRed =  (alliance.get() == DriverStation.Alliance.Red);
         }
-        sourceSide = this.getState().Pose.getY() <= 4.1;
+        return isRed;
+    }
 
-        String pathName = "";
-        if(!isRed && sourceSide){
-            pathName = "blue source side";
-        }
-        else if(!isRed && !sourceSide){
-            pathName = "blue amp side";
-        }
-        else if(isRed && sourceSide){
-            pathName = "red source side";
+    private PathPlannerPath getPathAmp(){
+
+        boolean isRed = this.isRed();
+        PathPlannerPath path = null;
+
+        if(!isRed){
+            path = PathPlannerPath.fromPathFile("blue amp side");
         }
         else{
-            pathName = "red amp side";
+            path = PathPlannerPath.fromPathFile("red amp side");
         }
 
+        return path;
+    }
+
+    private PathPlannerPath getPathSource(){
+
+        boolean isRed = this.isRed();
+        PathPlannerPath path = null;
+
+        if(!isRed){
+            path = PathPlannerPath.fromPathFile("blue source side");
+        }
+        else{
+            path = PathPlannerPath.fromPathFile("red source side");
+        }
+
+        return path;
+    }
+
+    public Command autoAlignSource() {
+
+        SmartDashboard.putBoolean("is Red", this.isRed());
+
         // Load the path we want to pathfind to and follow
-        PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+        PathPlannerPath path = this.getPathSource();
 
         // Create the constraints to use while pathfinding. The constraints defined in
         // the path will only be used for the path.
         PathConstraints constraints = new PathConstraints(
-                3.0, 4.0,
+                2.5, 3.5,
                 Units.degreesToRadians(270), Units.degreesToRadians(360));
 
         // Since AutoBuilder is configured, we can use it to build pathfinding commands
         Command pathfindingCommand = AutoBuilder.pathfindThenFollowPath(
                 path,
                 constraints,
-                0.1 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
+                0.01 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
+        );
+
+        return pathfindingCommand;
+    }
+
+        public Command autoAlignAmp() {
+
+        // Load the path we want to pathfind to and follow
+        PathPlannerPath path = this.getPathAmp();
+
+        // Create the constraints to use while pathfinding. The constraints defined in
+        // the path will only be used for the path.
+        PathConstraints constraints = new PathConstraints(
+                2.5, 3.5,
+                Units.degreesToRadians(270), Units.degreesToRadians(360));
+
+        // Since AutoBuilder is configured, we can use it to build pathfinding commands
+        Command pathfindingCommand = AutoBuilder.pathfindThenFollowPath(
+                path,
+                constraints,
+                0.01 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
         );
 
         return pathfindingCommand;

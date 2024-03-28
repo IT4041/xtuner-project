@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -52,6 +53,8 @@ public class RobotContainer {
   private SendableChooser<Command> trajChooser;
 
   public RobotContainer() {
+
+    SmartDashboard.putBoolean("here", false);
 
     AutoSequences autoSeq = new AutoSequences(pivot, intake, firingHead, masterController);
 
@@ -128,7 +131,8 @@ public class RobotContainer {
     driverController.leftBumper().whileTrue(new InstantCommand(() -> masterController.OverrideOn(), masterController));
     driverController.leftBumper().onFalse(new InstantCommand(() -> masterController.OverrideOff(), masterController));
 
-    driverController.rightBumper().whileTrue(new InstantCommand(() -> this.getAutoAlignAndShoot(), drivetrain,firingHead));
+    driverController.rightBumper().onTrue(this.getAutoAlignAndShootSource());
+    driverController.leftBumper().onTrue(this.getAutoAlignAndShootAmp());
 
     driverController.start().onTrue(home);
 
@@ -173,10 +177,28 @@ public boolean isRedAlliance() {
     return DriverStation.isDisabled();
   }
 
-  public Command getAutoAlignAndShoot(){
+  public Command getAutoAlignAndShootSource(){
 
     SequentialCommandGroup AAaS = new SequentialCommandGroup(
-      drivetrain.autoAlign(),
+      new ParallelCommandGroup(
+        drivetrain.autoAlignSource(),
+        new InstantCommand(() -> pivot.GoToShootingMidRange(), pivot).andThen(new WaitCommand(.5))),
+      new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), firingHead)
+      .andThen(new WaitCommand(.1))
+      .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead))
+      .andThen(new WaitCommand(1))
+      .andThen(new InstantCommand(() -> firingHead.MasterStop(), firingHead))
+    );
+
+    return AAaS;
+  }
+
+  public Command getAutoAlignAndShootAmp(){
+
+    SequentialCommandGroup AAaS = new SequentialCommandGroup(
+      new ParallelCommandGroup(
+        drivetrain.autoAlignAmp(),
+        new InstantCommand(() -> pivot.GoToShootingMidRange(), pivot).andThen(new WaitCommand(.5))),
       new InstantCommand(() -> firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), firingHead)
       .andThen(new WaitCommand(.1))
       .andThen(new InstantCommand(() -> firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), firingHead))
