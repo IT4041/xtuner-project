@@ -13,19 +13,16 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.LimelightHelpers;
 import frc.robot.generated.TunerConstants;
 
 /**
@@ -71,25 +68,13 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
 
     @Override
     public void periodic() {
-        LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-        if(limelightMeasurement.tagCount >= 2)
-        {
-        super.setVisionMeasurementStdDevs(VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(2.5)));
-        super.addVisionMeasurement(
-            limelightMeasurement.pose,
-            limelightMeasurement.timestampSeconds);
-        }
-
+ 
         Pose2d currPose2d = super.getState().Pose;
         m_field.setRobotPose(currPose2d);
 
         SmartDashboard.putNumber("Pose Y", currPose2d.getY());
         SmartDashboard.putNumber("Pose X", currPose2d.getX());
         SmartDashboard.putNumber("Pose Rot", currPose2d.getRotation().getDegrees());
-        SmartDashboard.putNumber("TA", LimelightHelpers.getTA("limelight"));
-        SmartDashboard.putNumber("TX", LimelightHelpers.getTX("limelight"));
-        SmartDashboard.putNumber("TY", LimelightHelpers.getTY("limelight"));
-        SmartDashboard.putBoolean("Pose Rot", LimelightHelpers.getTV("limelight"));
     }
   
 
@@ -166,6 +151,4 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     public void stop(SwerveRequest.FieldCentric drive) {
         this.commandForMovement(0, 0, 0, drive);
     }
-
- 
 }

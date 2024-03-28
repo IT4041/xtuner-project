@@ -128,8 +128,6 @@ public class RobotContainer {
     driverController.leftBumper().whileTrue(new InstantCommand(() -> masterController.OverrideOn(), masterController));
     driverController.leftBumper().onFalse(new InstantCommand(() -> masterController.OverrideOff(), masterController));
 
-    //driverController.rightBumper().whileTrue(new InstantCommand(() -> masterController.autoAlign(), masterController));
-
     driverController.start().onTrue(home);
 
     // ********************* operator control **************************/
