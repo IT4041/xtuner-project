@@ -33,10 +33,8 @@ public class RobotContainer {
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
 
   /* Setting up bindings for necessary control of the swerve drive platform */
-  public static final CommandXboxController driverController = new CommandXboxController(
-      Constants.kDriverControllerPort);
-  public static final CommandXboxController operatorController = new CommandXboxController(
-      Constants.kOperatorControllerPort);
+  public static final CommandXboxController driverController = new CommandXboxController(Constants.kDriverControllerPort);
+  public static final CommandXboxController operatorController = new CommandXboxController(Constants.kOperatorControllerPort);
 
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
   private final Pivot pivot = new Pivot();
@@ -51,7 +49,6 @@ public class RobotContainer {
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric driving in open loop
 
   private final Telemetry logger = new Telemetry(MaxSpeed);
-
   private SendableChooser<Command> trajChooser;
 
   public RobotContainer() {
