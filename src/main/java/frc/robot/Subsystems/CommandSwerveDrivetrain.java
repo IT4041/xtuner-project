@@ -78,12 +78,15 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
 
     @Override
     public void periodic() {
-        LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-        if (limelightMeasurement.tagCount >= 2) {
-            super.setVisionMeasurementStdDevs(VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(2.5)));
-            super.addVisionMeasurement(
-                    limelightMeasurement.pose,
-                    limelightMeasurement.timestampSeconds);
+
+        if(!DriverStation.isAutonomousEnabled()){
+            LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+            if (limelightMeasurement.tagCount >= 2) {
+                super.setVisionMeasurementStdDevs(VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(2.5)));
+                super.addVisionMeasurement(
+                        limelightMeasurement.pose,
+                        limelightMeasurement.timestampSeconds);
+            }
         }
 
         Pose2d currPose2d = super.getState().Pose;
