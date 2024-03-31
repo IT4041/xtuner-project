@@ -20,12 +20,6 @@
         {
           "type": "named",
           "data": {
-            "name": "fire_FarNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "GoToStarting"
           }
         },
@@ -65,19 +59,31 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "run_conveyors"
+                        "name": "run_conveyors_until"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "GoToShootingMidRange"
+                        "name": "GoToRight3NoteShootingPosition"
                       }
                     }
                   ]
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fire_Right3Note"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GoToStarting"
           }
         },
         {
@@ -93,7 +99,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "run_conveyors_until"
+                  "name": "run_conveyors"
                 }
               }
             ]
@@ -122,7 +128,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "GoToShootingMidRange"
+                        "name": "GoToRight3NoteShootingPosition"
                       }
                     }
                   ]
@@ -134,7 +140,7 @@
         {
           "type": "named",
           "data": {
-            "name": "fire_FarNote"
+            "name": "fire_Right3Note"
           }
         },
         {

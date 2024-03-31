@@ -30,7 +30,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "run_conveyors_until"
+                  "name": "run_conveyors"
                 }
               }
             ]

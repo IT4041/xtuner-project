@@ -52,6 +52,18 @@ public class AutoSequences {
         return shootingCommand;
     }
 
+    public SequentialCommandGroup ShootingSequence_Right3Note() {
+
+        SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
+                new InstantCommand(() -> m_firingHead.shooterSetSpeed(Constants.FiringHeadConstants.FarFiringSpeed), m_firingHead),
+                new InstantCommand(() -> m_pivot.GoToRight3NoteShootingPosition(), m_pivot),
+                new WaitCommand(.95),
+                new InstantCommand( () -> m_firingHead.setTransportMotorSpeed(Constants.FiringHeadConstants.ShootTransportMotorSpeed), m_firingHead),
+                new WaitCommand(.35));
+
+        return shootingCommand;
+    }
+
     public SequentialCommandGroup ShootingSequence_LeftNote() {
 
         SequentialCommandGroup shootingCommand = new SequentialCommandGroup(
@@ -138,7 +150,7 @@ public class AutoSequences {
     public SequentialCommandGroup ConveyorSequenceUntilSensor() {
 
         SequentialCommandGroup command = new RunCommand(() -> m_masterController.runConveyors(), m_masterController)
-                .until(() -> m_firingHead.CenterSensorTriggered()).withTimeout(1.5)
+                .until(() -> m_firingHead.CenterSensorTriggered()).withTimeout(3)
                 .andThen(new InstantCommand(() -> m_masterController.stopConveyors(), m_masterController));
 
         return command;

@@ -75,6 +75,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("GoToLeftNoteShootingPosition", new InstantCommand(() -> pivot.GoToLeftNoteShootingPosition(), pivot));
     NamedCommands.registerCommand("GoToRightNoteShootingPosition", new InstantCommand(() -> pivot.GoToRightNoteShootingPosition(), pivot));
     NamedCommands.registerCommand("GoToCenterNoteShootingPosition", new InstantCommand(() -> pivot.GoToCenterNoteShootingPosition(), pivot));
+    NamedCommands.registerCommand("GoToRight3NoteShootingPosition", new InstantCommand(() -> pivot.GoToRight3NoteShootingPosition(), pivot));
 
     NamedCommands.registerCommand("GoToStarting", new InstantCommand(() -> pivot.GoToStarting(), pivot));
     NamedCommands.registerCommand("starting_sequence", autoSeq.StartingSequence());
@@ -88,6 +89,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("fire_CenterNote", autoSeq.ShootingSequence_CenterNote());
     NamedCommands.registerCommand("fire_RightNote", autoSeq.ShootingSequence_RightNote());
     NamedCommands.registerCommand("fire_FarNote", autoSeq.ShootingSequence_FarNote());
+    NamedCommands.registerCommand("fire_Right3Note", autoSeq.ShootingSequence_Right3Note());
+    
     
     trajChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", trajChooser);
