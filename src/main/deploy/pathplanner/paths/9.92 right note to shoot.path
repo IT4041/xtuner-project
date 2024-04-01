@@ -8,28 +8,40 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.775201730163223,
-        "y": 4.2120416173114545
+        "x": 2.671529447037532,
+        "y": 4.214001096988031
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "ShootToRightEnd"
     },
     {
       "anchor": {
-        "x": 1.90805181610305,
-        "y": 4.35980201690013
+        "x": 1.44,
+        "y": 4.992139714009158
       },
       "prevControl": {
-        "x": 1.90805181610305,
-        "y": 4.35980201690013
+        "x": 1.539974760221708,
+        "y": 4.994386337834365
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "Shoot2End"
+      "isLocked": false,
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.9,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 5.5,
+        "maxAngularVelocity": 425.0,
+        "maxAngularAcceleration": 625.0
+      }
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.5,
@@ -39,11 +51,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -31.97692032939492,
+    "rotation": -26.56505117707808,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "blue 4 note",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
