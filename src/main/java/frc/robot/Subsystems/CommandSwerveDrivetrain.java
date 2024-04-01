@@ -79,15 +79,15 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     @Override
     public void periodic() {
 
-        if(!DriverStation.isAutonomousEnabled()){
-            LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-            if (limelightMeasurement.tagCount >= 2) {
-                super.setVisionMeasurementStdDevs(VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(2.5)));
-                super.addVisionMeasurement(
-                        limelightMeasurement.pose,
-                        limelightMeasurement.timestampSeconds);
-            }
-        }
+        // if(!DriverStation.isAutonomousEnabled()){
+        //     LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+        //     if (limelightMeasurement.tagCount >= 2) {
+        //         super.setVisionMeasurementStdDevs(VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(2.5)));
+        //         super.addVisionMeasurement(
+        //                 limelightMeasurement.pose,
+        //                 limelightMeasurement.timestampSeconds);
+        //     }
+        // }
 
         Pose2d currPose2d = super.getState().Pose;
         m_field.setRobotPose(currPose2d);
@@ -128,10 +128,10 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
                     // alliance
                     // This will flip the path being followed to the red side of the field.
                     // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-                    // var alliance = DriverStation.getAlliance();
-                    // if (alliance.isPresent()) {
-                    // return alliance.get() == DriverStation.Alliance.Red;
-                    // }
+                    var alliance = DriverStation.getAlliance();
+                    if (alliance.isPresent()) {
+                    return alliance.get() == DriverStation.Alliance.Red;
+                    }
                     return false;
                 },
                 this // Reference to this subsystem to set requirements
