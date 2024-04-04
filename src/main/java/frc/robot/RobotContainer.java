@@ -134,8 +134,8 @@ public class RobotContainer {
     driverController.leftBumper().whileTrue(new InstantCommand(() -> masterController.OverrideOn(), masterController));
     driverController.leftBumper().onFalse(new InstantCommand(() -> masterController.OverrideOff(), masterController));
 
-    driverController.rightBumper().onTrue(this.getAutoAlignAndShootSource());
-    driverController.leftBumper().onTrue(this.getAutoAlignAndShootAmp());
+    //driverController.rightBumper().onTrue(this.getAutoAlignAndShootSource());
+    //02driverController.leftBumper().onTrue(this.getAutoAlignAndShootAmp());
 
     driverController.start().onTrue(home);
 
